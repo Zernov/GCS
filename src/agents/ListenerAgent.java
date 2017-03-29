@@ -20,11 +20,13 @@ public class ListenerAgent extends Agent {
             @Override
             public void action() {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
-                System.out.println(myAgent.getLocalName() + " RECEIVED MESSAGE FROM " + msg.getSender());
-                ACLMessage reply = msg.createReply();
-                reply.setContent("DAROVA))))");
-                myAgent.send(reply);
-                System.out.println(myAgent.getLocalName() + " SENT ANSWER MESSAGE TO " + msg.getSender());
+                if (msg != null) {
+                    System.out.println(myAgent.getLocalName() + " RECEIVED MESSAGE FROM " + msg.getSender());
+                    ACLMessage reply = msg.createReply();
+                    reply.setContent("DAROVA))))");
+                    myAgent.send(reply);
+                    System.out.println(myAgent.getLocalName() + " SENT ANSWER MESSAGE TO " + msg.getSender());
+                }
             }
         });
 
