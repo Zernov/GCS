@@ -1,21 +1,44 @@
 package agents;
 
 import jade.core.Agent;
+import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
 
 import static agents.Global.*;
 
 public class ScheduleAgent extends Agent {
 
-    private Integer[][] schedule = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
-    private Integer[][] profit = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
+    private Integer[][] schedule;
+    private Integer[][] profit;
 
     protected void setup() {
 
-        //Create
+        //=========================Init=========================//
+        //Arguments
         Object[] args = getArguments();
         if (args != null && args.length > 0) {
             schedule = toArray(args[0].toString());
+            System.out.println(String.format("\n[ScheduleAgent \"%s\" was created]\n", getLocalName()));
+        } else {
+            System.out.print(String.format("\n[ScheduleAgent \"%s\" was not created (wrong arguments)]\n", getLocalName()));
+            doDelete();
         }
-        System.out.println(String.format("\n[ScheduleAgent \"%s\" created]\n%s\n", getLocalName(), toStringConsole(schedule)));
+
+        //Yellow pages
+        try {
+            DFAgentDescription dfd = new DFAgentDescription();
+            dfd.setName(getAID());
+            ServiceDescription sd = new ServiceDescription();
+            sd.setName("ScheduleAgent");
+            sd.setType("Schedule");
+            dfd.addServices(sd);
+            DFService.register(this, dfd);
+            System.out.println(String.format("\n[ScheduleAgent \"%s\" was registered ]\n", getLocalName()));
+        } catch (FIPAException fe) {
+            fe.printStackTrace();
+        }
+        //======================================================//
     }
 }
