@@ -1,34 +1,22 @@
 package agents;
 
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
 
-/**
- * Created by winnie on 3/29/2017.
- */
+import java.util.TreeMap;
+
+import static agents.Global.*;
+
 public class ListenerAgent extends Agent {
+
+    private TreeMap<Integer, Integer> preferences;
 
     protected void setup() {
 
         //Create
-        System.out.println("LISTENER " + getLocalName() + " CREATED");
-
-        //Behavior
-        addBehaviour(new CyclicBehaviour(this) {
-            @Override
-            public void action() {
-                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
-                if (msg != null) {
-                    System.out.println(myAgent.getLocalName() + " RECEIVED MESSAGE FROM " + msg.getSender());
-                    ACLMessage reply = msg.createReply();
-                    reply.setContent("DAROVA))))");
-                    myAgent.send(reply);
-                    System.out.println(myAgent.getLocalName() + " SENT ANSWER MESSAGE TO " + msg.getSender());
-                }
-            }
-        });
-
+        Object[] args = getArguments();
+        if (args != null && args.length > 0) {
+            preferences = toMap(args[0].toString());
+        }
+        System.out.println(String.format("\n[ListenerAgent \"%s\" created]\n%s\n", getLocalName(), toStringConsole(preferences)));
     }
 }
