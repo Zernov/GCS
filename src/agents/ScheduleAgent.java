@@ -1,10 +1,16 @@
 package agents;
 
+import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
+
+import java.rmi.server.ServerCloneException;
 
 import static agents.Global.*;
 
@@ -39,6 +45,27 @@ public class ScheduleAgent extends Agent {
         } catch (FIPAException fe) {
             fe.printStackTrace();
         }
+        //======================================================//
+
+        //======================Behaviours======================//
+        //Request profit
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
+                if (msg != null) {
+                    DFAgentDescription dfd = new DFAgentDescription();
+                    ServiceDescription sd = new ServiceDescription();
+                    sd.setType("Listener");
+                    dfd.addServices(sd);
+                    DFAgentDescription[] listeners =  DFService.search(, dfd);
+
+
+                } else {
+                    block();
+                }
+            }
+        });
         //======================================================//
     }
 
