@@ -10,10 +10,9 @@ public class CreatorAgent extends Agent {
     @Override
     protected void setup() {
         ContainerController cc = getContainerController();
-        Object[] args_L1 = new Object[1];
-        args_L1[0] = "1 100 2 100 3 100 4 100 5 100 6 100";
         try {
-            AgentController ac = cc.createNewAgent("Listener 1", "ListenerAgent", args_L1);
+            AgentController ac = cc.createNewAgent("Listener 1", "agents.ListenerAgent", new Object[] {"1 100 2 100 3 100 4 100 5 100 6 100"});
+            ac.start();
         } catch (StaleProxyException spe) {
             spe.printStackTrace();
         }
