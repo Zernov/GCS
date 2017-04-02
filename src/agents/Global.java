@@ -6,7 +6,7 @@ public final class Global {
 
     public final static Integer TIMEZONE_SIZE = 3;
     public final static Integer TIMEZONE_COUNT = 2;
-    public final static Integer LISTENER_COUNT = 100;
+    public final static Integer LISTENER_COUNT = 2;
     public final static Integer TOTAL = TIMEZONE_SIZE * TIMEZONE_COUNT;
 
     //====================Map (Listener)====================//
@@ -75,10 +75,23 @@ public final class Global {
     public static String toStringConsole(Integer[][] schedule) {
         String result = "Schedule\n";
         for (Integer[] timezone : schedule) {
-            for(Integer report : timezone) {
+            for (Integer report : timezone) {
                 result = result + String.format("%s\t", report.toString());
             }
             result = result + "\n";
+        }
+        return result;
+    }
+    //======================================================//
+
+    //======================================================//
+    //Array sum
+    public static Integer[][] sumArray(Integer[][] a, Integer[][] b) {
+        Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
+        for (int i = 0; i < TIMEZONE_COUNT; i++) {
+            for (int j = 0; j < TIMEZONE_SIZE; j++) {
+                result[i][j] = a[i][j] + b[i][j];
+            }
         }
         return result;
     }

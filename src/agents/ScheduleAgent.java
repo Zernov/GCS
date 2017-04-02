@@ -10,15 +10,43 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-import java.rmi.server.ServerCloneException;
-
 import static agents.Global.*;
 
 public class ScheduleAgent extends Agent {
 
     private Integer[][] schedule;
-    private Integer[][] profit;
+    private Integer[][] profit = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
+    private Integer requested = 0;
 
+    private DFAgentDescription[] getListeners() {
+        DFAgentDescription dfd = new DFAgentDescription();
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("Listener");
+        dfd.addServices(sd);
+        DFAgentDescription[] result = null;
+        try {
+             result = DFService.search(this, dfd);
+        } catch (FIPAException fe) {
+            fe.printStackTrace();
+        }
+        return result;
+    }
+
+    private DFAgentDescription getGenerator() {
+        DFAgentDescription dfd = new DFAgentDescription();
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("GeneratorAgent");
+        dfd.addServices(sd);
+        DFAgentDescription[] result = null;
+        try {
+            result = DFService.search(this, dfd);
+        } catch (FIPAException fe) {
+            fe.printStackTrace();
+        }
+        return result[0];
+    }
+
+    @Override
     protected void setup() {
 
         //=========================Init=========================//
@@ -54,13 +82,35 @@ public class ScheduleAgent extends Agent {
             public void action() {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
                 if (msg != null) {
-                    DFAgentDescription dfd = new DFAgentDescription();
-                    ServiceDescription sd = new ServiceDescription();
-                    sd.setType("Listener");
-                    dfd.addServices(sd);
-                    DFAgentDescription[] listeners =  DFService.search(, dfd);
+                    DFAgentDescription[] listeners = getListeners();
+                    for (DFAgentDescription listener: listeners) {
+                        ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
+                        request.setContent(toStringMessage(schedule));
+                        request.addReceiver(listener.getName());
+                        send(request);
+                    }
+                } else {
+                    block();
+                }
+            }
+        });
 
-
+        //Inform profit
+        addBehaviour(new CyclicBehaviour() {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
+                if (msg != null) {
+                    Integer[][] content = toArray(msg.getContent());
+                    profit = sumArray(profit, content);
+                    requested = requested + 1;
+                    if (requested.equals(LISTENER_COUNT)) {
+                        //ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
+                        //inform.setContent(toStringMessage(profit));
+                        //inform.addReceiver(getGenerator().getName());
+                        //send(inform);
+                        System.out.println(toStringConsole(profit));
+                    }
                 } else {
                     block();
                 }
@@ -69,6 +119,7 @@ public class ScheduleAgent extends Agent {
         //======================================================//
     }
 
+    @Override
     protected void takeDown() {
         try {
             DFService.deregister(this);

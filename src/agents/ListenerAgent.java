@@ -17,6 +17,7 @@ public class ListenerAgent extends Agent {
 
     private TreeMap<Integer, Integer> preferences;
 
+    @Override
     protected void setup() {
 
         //=========================Init=========================//
@@ -54,17 +55,25 @@ public class ListenerAgent extends Agent {
                 if (msg != null) {
                     String content = msg.getContent();
                     Integer[][] schedule = toArray(content);
-                    Integer profit = 0;
-                    for (Integer[] timezone: schedule) {
+                    Integer[][] profit = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
+                    for (int i = 0; i < TIMEZONE_COUNT; i++) {
                         Integer max = 0;
-                        for(int i = 0; i < TIMEZONE_SIZE; i++) {
-                            max = Math.max(max, preferences.get(timezone[i]));
+                        for (int j = 0; j < TIMEZONE_SIZE; j++) {
+                            max = Math.max(max, preferences.get(schedule[i][j]));
                         }
-                        profit = profit + max;
+                        boolean flag = true;
+                        for (int j = 0; j < TIMEZONE_SIZE; j++) {
+                            if (max.equals(preferences.get(schedule[i][j])) && flag) {
+                                profit[i][j] = max;
+                                flag = false;
+                            } else {
+                                profit[i][j] = 0;
+                            }
+                        }
                     }
                     ACLMessage reply = msg.createReply();
                     reply.setPerformative(ACLMessage.INFORM);
-                    reply.setContent(profit.toString());
+                    reply.setContent(toStringMessage(profit));
                     myAgent.send(reply);
                 } else {
                     block();
@@ -74,6 +83,7 @@ public class ListenerAgent extends Agent {
         //======================================================//
     }
 
+    @Override
     protected void takeDown() {
         try {
             DFService.deregister(this);
