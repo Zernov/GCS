@@ -50,6 +50,13 @@ public class ScheduleAgent extends Agent {
     protected void setup() {
 
         //=========================Init=========================//
+        //Default
+        for (int i = 0; i < TIMEZONE_COUNT; i++) {
+            for (int j = 0; j < TIMEZONE_SIZE; j++) {
+                profit[i][j] = 0;
+            }
+        }
+
         //Arguments
         Object[] args = getArguments();
         if (args != null && args.length > 0) {
