@@ -18,6 +18,8 @@ public class ScheduleAgent extends Agent {
     private Integer[][] profit = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
     private Integer requested = 0;
 
+    //========================Search========================//
+    //Search Listeners
     private DFAgentDescription[] getListeners() {
         DFAgentDescription dfd = new DFAgentDescription();
         ServiceDescription sd = new ServiceDescription();
@@ -32,10 +34,11 @@ public class ScheduleAgent extends Agent {
         return result;
     }
 
-    private DFAgentDescription getGenerator() {
+    //Search Generation
+    private DFAgentDescription getGeneration() {
         DFAgentDescription dfd = new DFAgentDescription();
         ServiceDescription sd = new ServiceDescription();
-        sd.setType("GeneratorAgent");
+        sd.setType("GenerationAgent");
         dfd.addServices(sd);
         DFAgentDescription[] result = null;
         try {
@@ -45,6 +48,7 @@ public class ScheduleAgent extends Agent {
         }
         return result[0];
     }
+    //======================================================//
 
     @Override
     protected void setup() {
@@ -61,9 +65,9 @@ public class ScheduleAgent extends Agent {
         Object[] args = getArguments();
         if (args != null && args.length > 0) {
             schedule = toArray(args[0].toString());
-            System.out.println(String.format("[ScheduleAgent \"%s\" was created]\n", getLocalName()));
+            System.out.println(String.format("[ScheduleAgent \"%s\" was created]", getLocalName()));
         } else {
-            System.out.print(String.format("[ScheduleAgent \"%s\" was not created (wrong arguments)]\n", getLocalName()));
+            System.out.print(String.format("[ScheduleAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
             doDelete();
         }
 
@@ -76,7 +80,7 @@ public class ScheduleAgent extends Agent {
             sd.setType("Schedule");
             dfd.addServices(sd);
             DFService.register(this, dfd);
-            System.out.println(String.format("[ScheduleAgent \"%s\" was registered ]\n", getLocalName()));
+            System.out.println(String.format("[ScheduleAgent \"%s\" was registered ]", getLocalName()));
         } catch (FIPAException fe) {
             fe.printStackTrace();
         }
@@ -103,7 +107,7 @@ public class ScheduleAgent extends Agent {
         });
 
         //Inform profit
-        addBehaviour(new CyclicBehaviour() {
+        addBehaviour(new CyclicBehaviour(this) {
             @Override
             public void action() {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
@@ -130,7 +134,7 @@ public class ScheduleAgent extends Agent {
     protected void takeDown() {
         try {
             DFService.deregister(this);
-            System.out.println(String.format("[ScheduleAgent \"%s\" was deregistered]\n", getLocalName()));
+            System.out.println(String.format("[ScheduleAgent \"%s\" was deregistered]", getLocalName()));
         } catch (FIPAException e) {
             e.printStackTrace();
         }
