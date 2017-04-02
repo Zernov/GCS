@@ -6,6 +6,11 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
+
+import static agents.Global.SCHEDULE_COUNT;
+import static agents.Global.toStringMessage;
 
 public class GenerationAgent extends Agent {
 
@@ -15,7 +20,7 @@ public class GenerationAgent extends Agent {
 
     //========================Search========================//
     //Search Schedules
-    private DFAgentDescription[] getListeners() {
+    private DFAgentDescription[] getSchedules() {
         DFAgentDescription dfd = new DFAgentDescription();
         ServiceDescription sd = new ServiceDescription();
         sd.setType("Schedule");
@@ -60,13 +65,39 @@ public class GenerationAgent extends Agent {
         //======================================================//
 
         //======================Behaviours======================//
-        //Request profit
+        //Request Profit
         addBehaviour(new CyclicBehaviour(this) {
             @Override
             public void action() {
-
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.PROPAGATE));
+                if (msg != null) {
+                    DFAgentDescription[] schedules = getSchedules();
+                    for (DFAgentDescription schedule: schedules) {
+                        ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
+                        request.addReceiver(schedule.getName());
+                        send(request);
+                    }
+                } else {
+                    block();
+                }
             }
         });
+
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
+                if (msg != null) {
+                    requested = requested + 1;
+                    if (requested.equals(SCHEDULE_COUNT)) {
+                        System.out.println("NEW GENERATION NOT IMPLEMENTED");
+                    }
+                } else {
+                    block();
+                }
+            }
+        });
+        //======================================================//
     }
 
     @Override

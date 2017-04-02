@@ -38,7 +38,7 @@ public class ScheduleAgent extends Agent {
     private DFAgentDescription getGeneration() {
         DFAgentDescription dfd = new DFAgentDescription();
         ServiceDescription sd = new ServiceDescription();
-        sd.setType("GenerationAgent");
+        sd.setType("Generation");
         dfd.addServices(sd);
         DFAgentDescription[] result = null;
         try {
@@ -116,11 +116,10 @@ public class ScheduleAgent extends Agent {
                     profit = sumArray(profit, content);
                     requested = requested + 1;
                     if (requested.equals(LISTENER_COUNT)) {
-                        //ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
-                        //inform.setContent(toStringMessage(profit));
-                        //inform.addReceiver(getGenerator().getName());
-                        //send(inform);
-                        System.out.println(toStringConsole(profit));
+                        ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
+                        inform.setContent(toStringMessage(profit));
+                        inform.addReceiver(getGeneration().getName());
+                        send(inform);
                     }
                 } else {
                     block();
