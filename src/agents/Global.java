@@ -6,7 +6,8 @@ public final class Global {
 
     public final static Integer TIMEZONE_SIZE = 3;
     public final static Integer TIMEZONE_COUNT = 2;
-    public final static Integer LISTENER_COUNT = 2;
+    public final static Integer LISTENER_COUNT = 3;
+    public final static Integer SCHEDULE_COUNT = 3;
     public final static Integer TOTAL = TIMEZONE_SIZE * TIMEZONE_COUNT;
 
     //====================Map (Listener)====================//
