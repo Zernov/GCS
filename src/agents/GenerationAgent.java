@@ -10,7 +10,6 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import static agents.Global.SCHEDULE_COUNT;
-import static agents.Global.toStringMessage;
 
 public class GenerationAgent extends Agent {
 
@@ -62,6 +61,9 @@ public class GenerationAgent extends Agent {
         } catch (FIPAException fe) {
             fe.printStackTrace();
         }
+
+        //Listeners and Schedules
+
         //======================================================//
 
         //======================Behaviours======================//
