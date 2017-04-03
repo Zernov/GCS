@@ -69,7 +69,7 @@ public class GenerationAgent extends Agent {
         addBehaviour(new CyclicBehaviour(this) {
             @Override
             public void action() {
-                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.PROPAGATE));
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
                 if (msg != null) {
                     DFAgentDescription[] schedules = getSchedules();
                     for (DFAgentDescription schedule: schedules) {
