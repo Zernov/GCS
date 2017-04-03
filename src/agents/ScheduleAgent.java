@@ -17,6 +17,7 @@ public class ScheduleAgent extends Agent {
     private Integer[][] schedule;
     private Integer[][] profit = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
     private Integer requested = 0;
+    private AID requester;
 
     //========================Search========================//
     //Search Listeners
@@ -32,21 +33,6 @@ public class ScheduleAgent extends Agent {
             fe.printStackTrace();
         }
         return result;
-    }
-
-    //Search Generation
-    private DFAgentDescription getGeneration() {
-        DFAgentDescription dfd = new DFAgentDescription();
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType("Generation");
-        dfd.addServices(sd);
-        DFAgentDescription[] result = null;
-        try {
-            result = DFService.search(this, dfd);
-        } catch (FIPAException fe) {
-            fe.printStackTrace();
-        }
-        return result[0];
     }
     //======================================================//
 
@@ -93,13 +79,14 @@ public class ScheduleAgent extends Agent {
             public void action() {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
                 if (msg != null) {
+                    requester = msg.getSender();
                     DFAgentDescription[] listeners = getListeners();
+                    ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
+                    request.setContent(toStringMessage(schedule));
                     for (DFAgentDescription listener: listeners) {
-                        ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
-                        request.setContent(toStringMessage(schedule));
                         request.addReceiver(listener.getName());
-                        send(request);
                     }
+                    send(request);
                 } else {
                     block();
                 }
@@ -118,7 +105,7 @@ public class ScheduleAgent extends Agent {
                     if (requested.equals(LISTENER_COUNT)) {
                         ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
                         inform.setContent(toStringMessage(profit));
-                        inform.addReceiver(getGeneration().getName());
+                        inform.addReceiver(requester);
                         send(inform);
                     }
                 } else {

@@ -83,6 +83,7 @@ public class GenerationAgent extends Agent {
             }
         });
 
+        //Receive Profit
         addBehaviour(new CyclicBehaviour(this) {
             @Override
             public void action() {
