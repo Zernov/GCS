@@ -23,6 +23,8 @@ public class CreatorAgent extends Agent {
             ac_s1.start();
             ac_s2.start();
             ac_s3.start();
+            AgentController ac_g1 = cc.createNewAgent("Generation 1", "agents.GenerationAgent", new Object[] {"0"});
+            ac_g1.start();
         } catch (StaleProxyException spe) {
             spe.printStackTrace();
         }
