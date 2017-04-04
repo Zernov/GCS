@@ -1,35 +1,126 @@
 package agents;
 
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
+import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import jade.wrapper.AgentController;
 import jade.wrapper.ContainerController;
 import jade.wrapper.StaleProxyException;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import static agents.Global.LISTENER_COUNT;
+import static agents.Global.SCHEDULE_COUNT;
+import static agents.Global.TOTAL;
+
 public class CreatorAgent extends Agent {
+
+    private Integer schedules = SCHEDULE_COUNT;
+
+    //========================Create========================//
+    //Random Listener
+    private void createRandomListener(String name) {
+        ContainerController cc = getContainerController();
+        ArrayList<Integer> preferences = new ArrayList<>();
+        for (int i = 0; i < TOTAL; i++) {
+            preferences.add(i);
+        }
+        Collections.shuffle(preferences);
+        String args = "";
+        for (int i = 0; i < TOTAL; i++) {
+            args = args + String.format("%d %d ", i, preferences.get(i));
+        }
+        args = args.substring(0, args.length() - 1);
+        try {
+            AgentController ac = cc.createNewAgent(name, "agents.ListenerAgent", new Object[] {args});
+            ac.start();
+        } catch (StaleProxyException spe) {
+            spe.printStackTrace();
+        }
+    }
+
+    //Custom Listener
+    private void createCustomListener(String name, Object[] args) {
+        ContainerController cc = getContainerController();
+        try {
+            AgentController ac = cc.createNewAgent(name, "agents.ListenerAgent", args);
+            ac.start();
+        } catch (StaleProxyException spe) {
+            spe.printStackTrace();
+        }
+    }
+
+    //Random Schedule
+    private void createRandomSchedule(String name) {
+        ContainerController cc = getContainerController();
+        ArrayList<Integer> schedule = new ArrayList<>();
+        for (int i = 0; i < TOTAL; i++) {
+            schedule.add(i);
+        }
+        Collections.shuffle(schedule);
+        String args = "";
+        for (int i = 0; i < TOTAL; i++) {
+            args = args + String.format("%d ", schedule.get(i));
+        }
+        args = args.substring(0, args.length() - 1);
+        try {
+            AgentController ac = cc.createNewAgent(name, "agents.ScheduleAgent", new Object[] {args});
+            ac.start();
+        } catch (StaleProxyException spe) {
+            spe.printStackTrace();
+        }
+    }
+
+    //Custom Listener
+    private void createCustomSchedule(String name, Object[] args) {
+        ContainerController cc = getContainerController();
+        try {
+            AgentController ac = cc.createNewAgent(name, "agents.ScheduleAgent", args);
+            ac.start();
+        } catch (StaleProxyException spe) {
+            spe.printStackTrace();
+        }
+    }
+    //======================================================//
 
     @Override
     protected void setup() {
 
-        //Create
+        //=========================Init=========================//
+        //Create Listeners
+        for (int i = 0; i < LISTENER_COUNT; i++) {
+            createRandomListener(String.format("Listener %d", i));
+        }
+
+        //Create Schedules
+        for (int i = 0; i < SCHEDULE_COUNT; i++) {
+            createRandomSchedule(String.format("Schedule %d", i));
+        }
+
+        //Create Generation
         ContainerController cc = getContainerController();
         try {
-            AgentController ac_l1 = cc.createNewAgent("Listener 1", "agents.ListenerAgent", new Object[] {"1 100 2 100 3 100 4 100 5 0 6 0"});
-            AgentController ac_l2 = cc.createNewAgent("Listener 2", "agents.ListenerAgent", new Object[] {"1 100 2 100 3 100 4 0 5 0 6 0"});
-            AgentController ac_l3 = cc.createNewAgent("Listener 3", "agents.ListenerAgent", new Object[] {"1 100 2 100 3 0 4 0 5 0 6 0"});
-            ac_l1.start();
-            ac_l2.start();
-            ac_l3.start();
-            AgentController ac_s1 = cc.createNewAgent("Schedule 1", "agents.ScheduleAgent", new Object[] {"1 2 3 4 5 6"});
-            AgentController ac_s2 = cc.createNewAgent("Schedule 2", "agents.ScheduleAgent", new Object[] {"1 4 3 2 5 6"});
-            AgentController ac_s3 = cc.createNewAgent("Schedule 3", "agents.ScheduleAgent", new Object[] {"6 2 3 4 5 1"});
-            ac_s1.start();
-            ac_s2.start();
-            ac_s3.start();
-            AgentController ac_g1 = cc.createNewAgent("Generation 1", "agents.GenerationAgent", new Object[] {"0"});
-            ac_g1.start();
-
+            AgentController ac = cc.createNewAgent("Generation", "agents.GenerationAgent", new Object[] {"3"});
         } catch (StaleProxyException spe) {
             spe.printStackTrace();
         }
+        //======================================================//
+
+        //=======================Reactive=======================//
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
+                if (msg != null) {
+                    String content = msg.getContent();
+                    createCustomSchedule(String.format("Schedule %d", schedules++), new Object[]{content});
+                } else {
+                    block();
+                }
+            }
+        });
+        //======================================================//
     }
 }
