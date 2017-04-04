@@ -1,5 +1,7 @@
 package agents;
 
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+
 import java.util.TreeMap;
 
 public final class Global {
@@ -9,6 +11,7 @@ public final class Global {
     public final static Integer LISTENER_COUNT = 3;
     public final static Integer SCHEDULE_COUNT = 3;
     public final static Integer TOTAL = TIMEZONE_SIZE * TIMEZONE_COUNT;
+    public static DFAgentDescription[] LISTENERS;
 
     //====================Map (Listener)====================//
     //String -> Map
@@ -85,13 +88,24 @@ public final class Global {
     }
     //======================================================//
 
-    //======================================================//
-    //Array sum
+    //=========================Help=========================//
+    //Array Sum
     public static Integer[][] sumArray(Integer[][] a, Integer[][] b) {
         Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
         for (int i = 0; i < TIMEZONE_COUNT; i++) {
             for (int j = 0; j < TIMEZONE_SIZE; j++) {
                 result[i][j] = a[i][j] + b[i][j];
+            }
+        }
+        return result;
+    }
+
+    //Total Sum
+    public static Integer sumTotal(Integer[][] array) {
+        Integer result = 0;
+        for (int i = 0; i < TIMEZONE_COUNT; i++) {
+            for (int j = 0; j < TIMEZONE_SIZE; j++) {
+                result = result + array[i][j];
             }
         }
         return result;
