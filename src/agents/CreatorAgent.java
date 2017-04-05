@@ -103,6 +103,7 @@ public class CreatorAgent extends Agent {
         ContainerController cc = getContainerController();
         try {
             AgentController ac = cc.createNewAgent("Generation", "agents.GenerationAgent", new Object[] {"3"});
+            ac.start();
         } catch (StaleProxyException spe) {
             spe.printStackTrace();
         }
