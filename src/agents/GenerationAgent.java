@@ -93,7 +93,7 @@ public class GenerationAgent extends Agent {
                 if (msg != null) {
                     requested = requested + 1;
                     Integer profit = sumTotal(toArray(msg.getContent()));
-                    System.out.println(String.format("\"%s\" with profit %f", msg.getSender().getLocalName(), profit.doubleValue()));
+                    System.out.println(String.format("\"%s\" with profit %f", msg.getSender().getLocalName(), profit.doubleValue() / LISTENER_COUNT.doubleValue()));
                     if (requested.equals(SCHEDULE_COUNT)) {
                         System.out.println("TADAM");
                     }

@@ -22,8 +22,10 @@ public class CreatorAgent extends Agent {
     private void createRandomListener(String name) {
         ContainerController cc = getContainerController();
         ArrayList<Integer> preferences = new ArrayList<>();
+        Double a = getRandomDouble();
+        Integer b = getRandomInteger();
         for (int i = 0; i < TOTAL; i++) {
-            preferences.add(getDistributionValue(i));
+            preferences.add(getDistributionValue(i, a, b));
         }
         Collections.shuffle(preferences);
         String args = "";
@@ -157,8 +159,9 @@ public class CreatorAgent extends Agent {
     protected void setup() {
 
         //=========================Init=========================//
-        createDataTestListeners();
-        createDataTestSchedules();
+        //createDataTestListeners();
+        //createDataTestSchedules();
+        createDataRandom();
         createGeneration("Generation", new Object[] {"3"} );
         //======================================================//
 
