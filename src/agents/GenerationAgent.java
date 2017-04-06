@@ -17,7 +17,6 @@ public class GenerationAgent extends Agent {
     private Integer generation = 0;
     private Integer requested = 0;
 
-    //========================Search========================//
     //Search Schedules
     private DFAgentDescription[] getSchedules() {
         DFAgentDescription dfd = new DFAgentDescription();
@@ -32,12 +31,10 @@ public class GenerationAgent extends Agent {
         }
         return result;
     }
-    //======================================================//
 
     @Override
     protected void setup() {
 
-        //=========================Init=========================//
         //Arguments
         Object[] args = getArguments();
         if (args != null && args.length > 0) {
@@ -102,11 +99,12 @@ public class GenerationAgent extends Agent {
                 }
             }
         });
-        //======================================================//
     }
 
     @Override
     protected void takeDown() {
+
+        //Yellow Pages
         try {
             DFService.deregister(this);
             System.out.println(String.format("[GenerationAgent \"%s\" was deregistered]", getLocalName()));

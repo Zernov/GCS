@@ -9,7 +9,7 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-import java.util.TreeMap;
+import java.util.*;
 
 import static agents.Global.*;
 
@@ -20,13 +20,11 @@ public class ListenerAgent extends Agent {
     @Override
     protected void setup() {
 
-        //=========================Init=========================//
         //Arguments
         Object[] args = getArguments();
         if (args != null && args.length > 0) {
             preferences = toMap(args[0].toString());
             System.out.println(String.format("[ListenerAgent \"%s\" was created]", getLocalName()));
-            System.out.println(String.format("%s", toStringConsole(preferences)));
         } else {
             System.out.print(String.format("[ListenerAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
             doDelete();
@@ -45,10 +43,8 @@ public class ListenerAgent extends Agent {
         } catch (FIPAException fe) {
             fe.printStackTrace();
         }
-        //======================================================//
 
-        //======================Behaviours======================//
-        //Request profit
+        //Request Profit
         addBehaviour(new CyclicBehaviour(this) {
             @Override
             public void action() {
@@ -81,11 +77,12 @@ public class ListenerAgent extends Agent {
                 }
             }
         });
-        //======================================================//
     }
 
     @Override
     protected void takeDown() {
+
+        //Yellow Pages
         try {
             DFService.deregister(this);
             System.out.println(String.format("[ListenerAgent \"%s\" was deregistered]", getLocalName()));

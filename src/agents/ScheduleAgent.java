@@ -19,7 +19,6 @@ public class ScheduleAgent extends Agent {
     private Integer requested = 0;
     private AID requester;
 
-    //========================Search========================//
     //Search Listeners
     private DFAgentDescription[] getListeners() {
         DFAgentDescription dfd = new DFAgentDescription();
@@ -34,13 +33,10 @@ public class ScheduleAgent extends Agent {
         }
         return result;
     }
-    //======================================================//
 
     @Override
     protected void setup() {
 
-        //=========================Init=========================//
-        //Default
         for (int i = 0; i < TIMEZONE_COUNT; i++) {
             for (int j = 0; j < TIMEZONE_SIZE; j++) {
                 profit[i][j] = 0;
@@ -52,7 +48,6 @@ public class ScheduleAgent extends Agent {
         if (args != null && args.length > 0) {
             schedule = toArray(args[0].toString());
             System.out.println(String.format("[ScheduleAgent \"%s\" was created]", getLocalName()));
-            //System.out.println(String.format("%s", toStringMessage(schedule)));
         } else {
             System.out.print(String.format("[ScheduleAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
             doDelete();
@@ -71,10 +66,8 @@ public class ScheduleAgent extends Agent {
         } catch (FIPAException fe) {
             fe.printStackTrace();
         }
-        //======================================================//
 
-        //======================Behaviours======================//
-        //Request profit
+        //Request Profit
         addBehaviour(new CyclicBehaviour(this) {
             @Override
             public void action() {
@@ -94,7 +87,7 @@ public class ScheduleAgent extends Agent {
             }
         });
 
-        //Inform profit
+        //Inform Profit
         addBehaviour(new CyclicBehaviour(this) {
             @Override
             public void action() {
@@ -114,11 +107,12 @@ public class ScheduleAgent extends Agent {
                 }
             }
         });
-        //======================================================//
     }
 
     @Override
     protected void takeDown() {
+
+        //Yellow Pages
         try {
             DFService.deregister(this);
             System.out.println(String.format("[ScheduleAgent \"%s\" was deregistered]", getLocalName()));
