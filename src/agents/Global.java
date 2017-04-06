@@ -5,11 +5,14 @@ import java.util.TreeMap;
 
 public final class Global {
 
+    //Main Settings
     public final static Integer TIMEZONE_SIZE = 5;
     public final static Integer TIMEZONE_COUNT = 6;
-    public final static Integer LISTENER_COUNT = 20;
-    public final static Integer SCHEDULE_COUNT = 10;
+    public final static Integer LISTENER_COUNT = 10;
+    public final static Integer SCHEDULE_COUNT = 5;
     public final static Integer TOTAL = TIMEZONE_SIZE * TIMEZONE_COUNT;
+
+    //Profit Distribution Settings
     private final static Double min = 25.0;
     private final static Double max = 28.0;
     private final static Integer from = 1;
@@ -31,7 +34,6 @@ public final class Global {
         return result.intValue();
     }
 
-    //====================Map (Listener)====================//
     //String -> Map
     public static TreeMap<Integer, Integer> toMap(String string) {
         TreeMap<Integer, Integer> result = new TreeMap<>();
@@ -63,9 +65,7 @@ public final class Global {
         }
         return result;
     }
-    //======================================================//
 
-    //===================Array (Schedule)===================//
     //String -> Array
     public static Integer[][] toArray(String string) {
         Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
@@ -104,9 +104,7 @@ public final class Global {
         }
         return result;
     }
-    //======================================================//
 
-    //=========================Help=========================//
     //Array Sum
     public static Integer[][] sumArray(Integer[][] a, Integer[][] b) {
         Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
@@ -128,5 +126,4 @@ public final class Global {
         }
         return result;
     }
-    //======================================================//
 }
