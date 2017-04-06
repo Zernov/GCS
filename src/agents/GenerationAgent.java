@@ -1,5 +1,6 @@
 package agents;
 
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;
@@ -9,6 +10,10 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import static agents.Global.*;
 
 public class GenerationAgent extends Agent {
@@ -16,6 +21,9 @@ public class GenerationAgent extends Agent {
     private Integer generations;
     private Integer generation = 0;
     private Integer requested = 0;
+    private HashMap<AID, Integer[][]> profits = new HashMap<>();
+    private HashMap<AID, Integer[]> tops = new HashMap<>();
+    private HashMap<AID, Integer> sums = new HashMap<>();
 
     //Search Schedules
     private DFAgentDescription[] getSchedules() {
@@ -59,11 +67,6 @@ public class GenerationAgent extends Agent {
             fe.printStackTrace();
         }
 
-        //Listeners and Schedules
-
-        //======================================================//
-
-        //======================Behaviours======================//
         //Request Profit
         addBehaviour(new CyclicBehaviour(this) {
             @Override
@@ -89,10 +92,31 @@ public class GenerationAgent extends Agent {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
                 if (msg != null) {
                     requested = requested + 1;
-                    Integer profit = sumTotal(toArray(msg.getContent()));
-                    System.out.println(String.format("\"%s\" with profit %f", msg.getSender().getLocalName(), profit.doubleValue() / LISTENER_COUNT.doubleValue()));
+                    AID schedule = msg.getSender();
+                    Integer[][] profit = toArray(msg.getContent());
+                    profits.put(schedule, profit);
+                    Integer[] top = new Integer[TIMEZONE_COUNT];
+                    for (int i = 0; i < TIMEZONE_COUNT; i++) {
+                        Integer max = 0;
+                        Integer index = 0;
+                        for (int j = 0; j < TIMEZONE_SIZE; j++) {
+                            if (max < profit[i][j]) {
+                                max = profit[i][j];
+                                index = j;
+                            }
+                        }
+                        top[i] = index;
+                    }
+                    tops.put(schedule, top);
+                    sums.put(schedule, sumTotal(profit));
                     if (requested.equals(SCHEDULE_COUNT)) {
-                        System.out.println("TADAM");
+                        if (generation < generations) {
+                            System.out.println(String.format("===Generation %s===", generation.toString()));
+                            for (Map.Entry<AID, Integer> sum: sums.entrySet()) {
+                                System.out.println(String.format("\"%s\" has profit %s", sum.getKey().getLocalName(), sum.getValue()));
+                            }
+                            System.out.println(String.format("===================", generation.toString()));
+                        }
                     }
                 } else {
                     block();
