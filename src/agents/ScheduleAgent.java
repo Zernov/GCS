@@ -52,6 +52,7 @@ public class ScheduleAgent extends Agent {
         if (args != null && args.length > 0) {
             schedule = toArray(args[0].toString());
             System.out.println(String.format("[ScheduleAgent \"%s\" was created]", getLocalName()));
+            //System.out.println(String.format("%s", toStringMessage(schedule)));
         } else {
             System.out.print(String.format("[ScheduleAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
             doDelete();

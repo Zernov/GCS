@@ -1,14 +1,37 @@
 package agents;
 
+import java.util.Random;
 import java.util.TreeMap;
 
 public final class Global {
 
-    public final static Integer TIMEZONE_SIZE = 3;
-    public final static Integer TIMEZONE_COUNT = 10;
-    public final static Integer LISTENER_COUNT = 10;
+    public final static Integer TIMEZONE_SIZE = 4;
+    public final static Integer TIMEZONE_COUNT = 6;
+    public final static Integer LISTENER_COUNT = 30;
     public final static Integer SCHEDULE_COUNT = 10;
     public final static Integer TOTAL = TIMEZONE_SIZE * TIMEZONE_COUNT;
+    public final static Double min = 1.0;
+    public final static Double max = 5.0;
+
+    public static Double getRandom(Double min, Double max) {
+        return min + (new Random().nextDouble() * (max - min));
+    }
+
+    //Profit Value
+    public static Integer getDistributionValue(Integer x) {
+        Double a = getRandom(min, max);
+        Double result = TOTAL.doubleValue() * TOTAL.doubleValue() * (Math.exp(x.doubleValue() / a.doubleValue()) - 1) / (Math.exp(TOTAL.doubleValue() / a.doubleValue()) - 1);
+        return result.intValue();
+    }
+
+    //Profit Distribution
+    public static Integer[] getDistibution() {
+        Integer[] result = new Integer[TOTAL];
+        for (int i = 0; i < TOTAL; i++) {
+            result[i] = getDistributionValue(i);
+        }
+        return result;
+    }
 
     //====================Map (Listener)====================//
     //String -> Map

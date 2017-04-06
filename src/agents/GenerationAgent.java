@@ -9,7 +9,7 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-import static agents.Global.SCHEDULE_COUNT;
+import static agents.Global.*;
 
 public class GenerationAgent extends Agent {
 
@@ -92,8 +92,10 @@ public class GenerationAgent extends Agent {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
                 if (msg != null) {
                     requested = requested + 1;
+                    Integer profit = sumTotal(toArray(msg.getContent()));
+                    System.out.println(String.format("\"%s\" with profit %f", msg.getSender().getLocalName(), profit.doubleValue()));
                     if (requested.equals(SCHEDULE_COUNT)) {
-                        System.out.println("NEW GENERATION NOT IMPLEMENTED");
+                        System.out.println("TADAM");
                     }
                 } else {
                     block();

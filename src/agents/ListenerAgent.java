@@ -26,6 +26,7 @@ public class ListenerAgent extends Agent {
         if (args != null && args.length > 0) {
             preferences = toMap(args[0].toString());
             System.out.println(String.format("[ListenerAgent \"%s\" was created]", getLocalName()));
+            //System.out.println(String.format("%s", toStringMessage(preferences)));
         } else {
             System.out.print(String.format("[ListenerAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
             doDelete();
