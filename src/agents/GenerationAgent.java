@@ -22,7 +22,6 @@ public class GenerationAgent extends Agent {
     private Integer generation = 0;
     private Integer requested = 0;
     private HashMap<AID, Integer[][]> profits = new HashMap<>();
-    private HashMap<AID, Integer[]> tops = new HashMap<>();
     private HashMap<AID, Integer> sums = new HashMap<>();
 
     //Search Schedules
@@ -74,11 +73,11 @@ public class GenerationAgent extends Agent {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
                 if (msg != null) {
                     DFAgentDescription[] schedules = getSchedules();
+                    ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
                     for (DFAgentDescription schedule: schedules) {
-                        ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
                         request.addReceiver(schedule.getName());
-                        send(request);
                     }
+                    send(request);
                 } else {
                     block();
                 }
@@ -92,23 +91,10 @@ public class GenerationAgent extends Agent {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
                 if (msg != null) {
                     requested = requested + 1;
-                    AID schedule = msg.getSender();
+                    AID name = msg.getSender();
                     Integer[][] profit = toArray(msg.getContent());
-                    profits.put(schedule, profit);
-                    Integer[] top = new Integer[TIMEZONE_COUNT];
-                    for (int i = 0; i < TIMEZONE_COUNT; i++) {
-                        Integer max = 0;
-                        Integer index = 0;
-                        for (int j = 0; j < TIMEZONE_SIZE; j++) {
-                            if (max < profit[i][j]) {
-                                max = profit[i][j];
-                                index = j;
-                            }
-                        }
-                        top[i] = index;
-                    }
-                    tops.put(schedule, top);
-                    sums.put(schedule, sumTotal(profit));
+                    profits.put(name, profit);
+                    sums.put(name, sumTotal(profit));
                     if (requested.equals(SCHEDULE_COUNT)) {
                         if (generation < generations) {
                             System.out.println(String.format("===Generation %s===", generation.toString()));
@@ -116,6 +102,12 @@ public class GenerationAgent extends Agent {
                                 System.out.println(String.format("\"%s\" has profit %s", sum.getKey().getLocalName(), sum.getValue()));
                             }
                             System.out.println(String.format("===================", generation.toString()));
+                            ACLMessage propagate = new ACLMessage(ACLMessage.PROPAGATE);
+                            DFAgentDescription[] schedules = getSchedules();
+                            for (DFAgentDescription schedule: schedules) {
+                                propagate.addReceiver(schedule.getName());
+                            }
+                            send(propagate);
                         }
                     }
                 } else {

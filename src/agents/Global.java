@@ -1,5 +1,6 @@
 package agents;
 
+import java.util.HashMap;
 import java.util.Random;
 import java.util.TreeMap;
 
@@ -10,6 +11,10 @@ public final class Global {
     public final static Integer TIMEZONE_COUNT = 6;
     public final static Integer LISTENER_COUNT = 10;
     public final static Integer SCHEDULE_COUNT = 5;
+    public final static Integer CLONE_COUNT = 1;
+    public final static Integer MUTANTE_СЩГТЕ = 1;
+    public final static Integer MALE_COUNT = 3;
+    public final static Integer TOP = 6;
     public final static Integer TOTAL = TIMEZONE_SIZE * TIMEZONE_COUNT;
 
     //Profit Distribution Settings
@@ -116,12 +121,67 @@ public final class Global {
         return result;
     }
 
+    //String -> Array
+    public static Integer[] toArrayTop(String string) {
+        Integer[] result = new Integer[TOP];
+        String[] string_split = string.split(" ");
+        if (string_split.length == TOP) {
+            for (int i = 0; i < TOP; i++) {
+                result[i] = Integer.parseInt(string_split[i]);
+            }
+            return result;
+        } else {
+            return null;
+        }
+    }
+
+    //Array -> String
+    public static String toStringMessage(Integer[] top) {
+        String result = "";
+        for (Integer report: top) {
+            result = result + String.format("%s ", report.toString());
+        }
+        return result.substring(0, result.length() - 1);
+    }
+
+    //Array -> Console
+    public static String toStringConsole(Integer[] top) {
+        String result = "Top\n";
+        for (Integer report: top) {
+            result = result + String.format("%s\t", report.toString());
+        }
+        return result.substring(0, result.length() - 1);
+    }
+
+
     //Total Sum
     public static Integer sumTotal(Integer[][] array) {
         Integer result = 0;
         for (int i = 0; i < TIMEZONE_COUNT; i++) {
             for (int j = 0; j < TIMEZONE_SIZE; j++) {
                 result = result + array[i][j];
+            }
+        }
+        return result;
+    }
+
+    //Top Reports
+    public static Integer[] topReports(Integer[][] schedule, Integer[][] profit) {
+        Integer[] result = new Integer[TOP];
+        Integer[] temp = new Integer[TOP];
+        for (int i = 0; i < TOP; i++) {
+            result[i] = 0;
+            temp[i] = 0;
+        }
+        for (int i = 0; i < TIMEZONE_COUNT; i++) {
+            for (int j = 0; j < TIMEZONE_SIZE; j++) {
+                for (int k = 0; k < TOP; k++) {
+                    if (temp[k] < profit[i][j]) {
+                        temp[k] = profit[i][j];
+                        result[k] = schedule[i][j];
+                        k = TOP;
+                    }
+                }
             }
         }
         return result;

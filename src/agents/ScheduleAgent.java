@@ -10,14 +10,19 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
+import java.util.HashMap;
+
 import static agents.Global.*;
 
 public class ScheduleAgent extends Agent {
 
     private Integer[][] schedule;
     private Integer[][] profit = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
+    private Integer[] top;
     private Integer requested = 0;
+    private Integer proposed = 0;
     private AID requester;
+    private HashMap<AID, Integer[]> tops = new HashMap<>();
 
     //Search Listeners
     private DFAgentDescription[] getListeners() {
@@ -28,6 +33,21 @@ public class ScheduleAgent extends Agent {
         DFAgentDescription[] result = null;
         try {
              result = DFService.search(this, dfd);
+        } catch (FIPAException fe) {
+            fe.printStackTrace();
+        }
+        return result;
+    }
+
+    //Search Schedules
+    private DFAgentDescription[] getSchedules() {
+        DFAgentDescription dfd = new DFAgentDescription();
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("Schedule");
+        dfd.addServices(sd);
+        DFAgentDescription[] result = null;
+        try {
+            result = DFService.search(this, dfd);
         } catch (FIPAException fe) {
             fe.printStackTrace();
         }
@@ -97,10 +117,64 @@ public class ScheduleAgent extends Agent {
                     profit = sumArray(profit, content);
                     requested = requested + 1;
                     if (requested.equals(LISTENER_COUNT)) {
+                        top = topReports(schedule, profit);
                         ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
                         inform.setContent(toStringMessage(profit));
                         inform.addReceiver(requester);
                         send(inform);
+                    }
+                } else {
+                    block();
+                }
+            }
+        });
+
+        //Request Top
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.PROPAGATE));
+                if (msg != null) {
+                    DFAgentDescription[] schedules = getSchedules();
+                    ACLMessage propose = new ACLMessage(ACLMessage.PROPOSE);
+                    for (DFAgentDescription schedule: schedules) {
+                        if (!schedule.getName().equals(getAID())) {
+                            propose.addReceiver(schedule.getName());
+                        }
+                    }
+                    send(propose);
+                } else {
+                    block();
+                }
+            }
+        });
+
+        //Send Top
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.PROPOSE));
+                if (msg != null) {
+                    ACLMessage reply = msg.createReply();
+                    reply.setContent(toStringMessage(top));
+                    reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                    send(reply);
+                } else {
+                    block();
+                }
+            }
+        });
+
+        //Choose Pair
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL));
+                if (msg != null) {
+                    tops.put(msg.getSender(), toArrayTop(msg.getContent()));
+                    proposed = proposed + 1;
+                    if (proposed.equals(SCHEDULE_COUNT - 1)) {
+                        System.out.println("todo");
                     }
                 } else {
                     block();
