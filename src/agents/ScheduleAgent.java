@@ -118,6 +118,7 @@ public class ScheduleAgent extends Agent {
                     requested = requested + 1;
                     if (requested.equals(LISTENER_COUNT)) {
                         top = topReports(schedule, profit);
+                        //System.out.println(String.format(">>>\n%s\nTOP\n%s\nSCHEDULE\n%s\nPROFIT\n%s\n<<<", getLocalName(), toStringConsole(top), toStringConsole(schedule), toStringConsole(profit)));
                         ACLMessage inform = new ACLMessage(ACLMessage.INFORM);
                         inform.setContent(toStringMessage(profit));
                         inform.addReceiver(requester);

@@ -173,12 +173,13 @@ public final class Global {
             result[i] = 0;
             temp[i] = 0;
         }
+        System.out.println(String.format(">>>\nSCHEDULE\n%s\nPROFIT\n%s\n<<<", toStringConsole(schedule), toStringConsole(profit)));
         for (int i = 0; i < TIMEZONE_COUNT; i++) {
             for (int j = 0; j < TIMEZONE_SIZE; j++) {
                 for (int k = 0; k < TOP; k++) {
                     if (temp[k] < profit[i][j]) {
-                        temp[k] = profit[i][j];
-                        result[k] = schedule[i][j];
+                        temp[k] = new Integer(profit[i][j]);
+                        result[k] = new Integer(schedule[i][j]);
                         k = TOP;
                     }
                 }
