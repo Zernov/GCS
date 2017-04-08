@@ -122,6 +122,7 @@ public class GenerationAgent extends Agent {
                                 propagate.addReceiver(list.get(i));
                                 System.out.print(String.format("\"%s\", ", list.get(i).getLocalName()));
                             }
+                            propagate.addReceiver(list.get(MALE_COUNT - 1));
                             System.out.println(String.format("\"%s\"", list.get(MALE_COUNT - 1).getLocalName()));
                             clones = topSums(sums);
                             System.out.print(String.format("Clones: "));

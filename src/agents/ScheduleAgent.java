@@ -11,6 +11,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static agents.Global.*;
 
@@ -22,7 +23,8 @@ public class ScheduleAgent extends Agent {
     private Integer requested = 0;
     private Integer proposed = 0;
     private AID requester;
-    private HashMap<AID, Integer[]> tops = new HashMap<>();
+    private HashMap<AID, Integer> tops = new HashMap<>();
+    private AID pair;
 
     //Search Listeners
     private DFAgentDescription[] getListeners() {
@@ -171,10 +173,11 @@ public class ScheduleAgent extends Agent {
             public void action() {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL));
                 if (msg != null) {
-                    tops.put(msg.getSender(), toArrayTop(msg.getContent()));
+                    tops.put(msg.getSender(), closeArrays(toArrayTop(msg.getContent()), top));
                     proposed = proposed + 1;
                     if (proposed.equals(SCHEDULE_COUNT - 1)) {
-
+                        pair = topTops(tops);
+                        System.out.println(String.format("\"%s\" has sex with \"%s\"\n", getLocalName(), pair.getLocalName()));
                     }
                 } else {
                     block();

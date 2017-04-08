@@ -212,6 +212,32 @@ public final class Global {
                 result[min] = sum.getKey();
             }
         }
-        return  result;
+        return result;
+    }
+
+    //Top Tops
+    public static AID topTops(HashMap<AID, Integer> sums) {
+        AID result = null;
+        Integer temp = 0;
+        for (Map.Entry<AID, Integer> sum: sums.entrySet()) {
+            if (temp < sum.getValue()) {
+                temp = new Integer(sum.getValue());
+                result = sum.getKey();
+            }
+        }
+        return result;
+    }
+
+    //Close Arrays
+    public static Integer closeArrays(Integer[] a, Integer[] b) {
+        Integer result = 0;
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                if (a[i].equals(b[i])) {
+                    result = result + 1;
+                }
+            }
+        }
+        return result;
     }
 }
