@@ -1,8 +1,8 @@
 package agents;
 
-import java.util.HashMap;
-import java.util.Random;
-import java.util.TreeMap;
+import jade.core.AID;
+
+import java.util.*;
 
 public final class Global {
 
@@ -12,7 +12,7 @@ public final class Global {
     public final static Integer LISTENER_COUNT = 10;
     public final static Integer SCHEDULE_COUNT = 5;
     public final static Integer CLONE_COUNT = 1;
-    public final static Integer MUTANTE_СЩГТЕ = 1;
+    public final static Integer MUTANTE_COUNT = 1;
     public final static Integer MALE_COUNT = 3;
     public final static Integer TOP = 6;
     public final static Integer TOTAL = TIMEZONE_SIZE * TIMEZONE_COUNT;
@@ -64,9 +64,9 @@ public final class Global {
 
     //Map -> Console
     public static String toStringConsole(TreeMap<Integer, Integer> preferences) {
-        String result = "Report\tProfit\n";
+        String result = "Key\tValue\n";
         for (Integer report : preferences.keySet()) {
-            result = result + String.format("%s\t\t%s\n", report.toString(), preferences.get(report));
+            result = result + String.format("%s\t%s\n", report.toString(), preferences.get(report));
         }
         return result;
     }
@@ -100,7 +100,7 @@ public final class Global {
 
     //Array -> Console
     public static String toStringConsole(Integer[][] schedule) {
-        String result = "Schedule\n";
+        String result = "";
         for (Integer[] timezone : schedule) {
             for (Integer report : timezone) {
                 result = result + String.format("%s\t", report.toString());
@@ -146,7 +146,7 @@ public final class Global {
 
     //Array -> Console
     public static String toStringConsole(Integer[] top) {
-        String result = "Top\n";
+        String result = "";
         for (Integer report: top) {
             result = result + String.format("%s\t", report.toString());
         }
@@ -165,6 +165,19 @@ public final class Global {
         return result;
     }
 
+    //Min
+    private static int minIndex(Integer[] array) {
+        int result = -1;
+        Integer min = Integer.MAX_VALUE;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+                result = i;
+            }
+        }
+        return  result;
+    }
+
     //Top Reports
     public static Integer[] topReports(Integer[][] schedule, Integer[][] profit) {
         Integer[] result = new Integer[TOP];
@@ -173,18 +186,32 @@ public final class Global {
             result[i] = 0;
             temp[i] = 0;
         }
-        System.out.println(String.format(">>>\nSCHEDULE\n%s\nPROFIT\n%s\n<<<", toStringConsole(schedule), toStringConsole(profit)));
         for (int i = 0; i < TIMEZONE_COUNT; i++) {
             for (int j = 0; j < TIMEZONE_SIZE; j++) {
-                for (int k = 0; k < TOP; k++) {
-                    if (temp[k] < profit[i][j]) {
-                        temp[k] = new Integer(profit[i][j]);
-                        result[k] = new Integer(schedule[i][j]);
-                        k = TOP;
-                    }
+                int min = minIndex(temp);
+                if (temp[min] < profit[i][j]) {
+                    temp[min] = new Integer(profit[i][j]);
+                    result[min] = new Integer(schedule[i][j]);
                 }
             }
         }
         return result;
+    }
+
+    //Top Sums
+    public static AID[] topSums(HashMap<AID, Integer> sums) {
+        AID[] result = new AID[CLONE_COUNT];
+        Integer[] temp = new Integer[CLONE_COUNT];
+        for (int i = 0; i < CLONE_COUNT; i++) {
+            temp[i] = 0;
+        }
+        for (Map.Entry<AID, Integer> sum: sums.entrySet()) {
+            int min = minIndex(temp);
+            if (temp[min] < sum.getValue()) {
+                temp[min] = new Integer(sum.getValue());
+                result[min] = sum.getKey();
+            }
+        }
+        return  result;
     }
 }

@@ -9,7 +9,10 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.util.leap.*;
+import jade.util.leap.Collection;
 
+import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +26,11 @@ public class GenerationAgent extends Agent {
     private Integer requested = 0;
     private HashMap<AID, Integer[][]> profits = new HashMap<>();
     private HashMap<AID, Integer> sums = new HashMap<>();
+
+    private HashMap<AID, AID> pairs = new HashMap<>();
+    private AID[] clones;
+    private AID[] mutantes = new AID[MUTANTE_COUNT];
+
 
     //Search Schedules
     private DFAgentDescription[] getSchedules() {
@@ -97,16 +105,39 @@ public class GenerationAgent extends Agent {
                     sums.put(name, sumTotal(profit));
                     if (requested.equals(SCHEDULE_COUNT)) {
                         if (generation < generations) {
-                            System.out.println(String.format("===Generation %s===", generation.toString()));
+                            System.out.println(String.format("\n===Generation %s===", generation.toString()));
                             for (Map.Entry<AID, Integer> sum: sums.entrySet()) {
                                 System.out.println(String.format("\"%s\" has profit %s", sum.getKey().getLocalName(), sum.getValue()));
                             }
-                            System.out.println(String.format("===================", generation.toString()));
+                            System.out.println(String.format("=================="));
                             ACLMessage propagate = new ACLMessage(ACLMessage.PROPAGATE);
                             DFAgentDescription[] schedules = getSchedules();
+                            ArrayList<AID> list = new ArrayList<>();
                             for (DFAgentDescription schedule: schedules) {
-                                propagate.addReceiver(schedule.getName());
+                                list.add(schedule.getName());
                             }
+                            Collections.shuffle(list);
+                            System.out.print(String.format("Males: "));
+                            for (int i = 0; i < MALE_COUNT - 1; i++) {
+                                propagate.addReceiver(list.get(i));
+                                System.out.print(String.format("\"%s\", ", list.get(i).getLocalName()));
+                            }
+                            System.out.println(String.format("\"%s\"", list.get(MALE_COUNT - 1).getLocalName()));
+                            clones = topSums(sums);
+                            System.out.print(String.format("Clones: "));
+                            for (int i = 0; i < CLONE_COUNT - 1; i++) {
+                                System.out.print(String.format("\"%s\", ", clones[i].getLocalName()));
+                            }
+                            System.out.println(String.format("\"%s\"", clones[CLONE_COUNT - 1].getLocalName()));
+                            Collections.shuffle(list);
+                            System.out.print(String.format("Mutantes: "));
+                            for (int i = 0; i < MUTANTE_COUNT - 1; i++) {
+                                mutantes[i] = list.get(i);
+                                System.out.print(String.format("\"%s\", ", mutantes[i].getLocalName()));
+                            }
+                            mutantes[MUTANTE_COUNT - 1] = list.get(MUTANTE_COUNT - 1);
+                            System.out.println(String.format("\"%s\"", mutantes[MUTANTE_COUNT - 1].getLocalName()));
+                            System.out.println(String.format("==================\n"));
                             send(propagate);
                         }
                     }

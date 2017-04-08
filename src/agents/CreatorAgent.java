@@ -2,6 +2,10 @@ package agents;
 
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.wrapper.AgentController;
@@ -126,12 +130,36 @@ public class CreatorAgent extends Agent {
         }
     }
 
+    private DFAgentDescription[] getGenerations() {
+        DFAgentDescription dfd = new DFAgentDescription();
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("Generation");
+        dfd.addServices(sd);
+        DFAgentDescription[] result = null;
+        try {
+            result = DFService.search(this, dfd);
+        } catch (FIPAException fe) {
+            fe.printStackTrace();
+        }
+        return result;
+    }
+
     @Override
     protected void setup() {
 
         createDataTestListeners();
         createDataTestSchedules();
         createGeneration("Generation", new Object[] {"3"} );
+
+        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+        DFAgentDescription[] generations = new DFAgentDescription[0];
+        while (generations.length == 0) {
+            generations = getGenerations();
+        }
+        for (DFAgentDescription generation: generations) {
+            msg.addReceiver(generation.getName());
+        }
+        send(msg);
 
         //Reactive Creation
         addBehaviour(new CyclicBehaviour(this) {
