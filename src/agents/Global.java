@@ -75,6 +75,30 @@ public final class Global {
         return result;
     }
 
+    //String -> ArrayListArray
+    public static ArrayList<Integer[][]> toArrayList(String string) {
+        ArrayList<Integer[][]> result = new ArrayList<>();
+        String[] string_split = string.split("\n");
+        if (string_split.length == SCHEDULE_COUNT) {
+            for (int i = 0; i < string_split.length; i++) {
+                Integer[][] temp = toArray(string_split[i]);
+                result.add(temp);
+            }
+            return  result;
+        } else {
+            return null;
+        }
+    }
+
+    //Array -> String
+    public static String toStringMessageList(ArrayList<Integer[][]> arraylist) {
+        String result = "";
+        for (Integer[][] array : arraylist) {
+            result = result + String.format("%s\n", toStringMessage(array));
+        }
+        return result.substring(0, result.length() - 1);
+    }
+
     //String -> Array
     public static Integer[][] toArray(String string) {
         Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
@@ -173,7 +197,6 @@ public final class Global {
         }
         return result.substring(0, result.length() - 1);
     }
-
 
     //Array Sum
     public static Integer[][] sumArray(Integer[][] a, Integer[][] b) {
@@ -283,7 +306,21 @@ public final class Global {
     //Merge Array
     public static Integer[][] createArray(ArrayList<Integer> top) {
         Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
-        //TODO
+        ArrayList<Integer> full = new ArrayList<>();
+        for (int i = 0; i < top.size(); i++) {
+            full.add(top.get(i));
+        }
+        Collections.shuffle(full);
+        ArrayList<Integer> complete = completeArray(top);
+        Collections.shuffle(complete);
+        for (int i = 0; i < complete.size(); i++) {
+            full.add(complete.get(i));
+        }
+        for (int i = 0; i < TIMEZONE_SIZE; i++) {
+            for (int j = 0; j < TIMEZONE_COUNT; j++) {
+                result[j][i] = new Integer(full.get(i * TIMEZONE_COUNT + j));
+            }
+        }
         return result;
     }
 
@@ -326,6 +363,7 @@ public final class Global {
         return result;
     }
 
+    //In Array
     public static boolean inArray(AID[] array, AID aid) {
         for (int i = 0; i < array.length; i++) {
             if (aid.equals(array[i])) {
@@ -333,5 +371,27 @@ public final class Global {
             }
         }
         return false;
+    }
+
+    //In Array
+    public static boolean inArray(ArrayList<Integer> array, Integer aid) {
+        for (int i = 0; i < array.size(); i++) {
+            if (aid.equals(array.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Complete Array
+    public static ArrayList<Integer> completeArray(ArrayList<Integer> array) {
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = 0; i < TOTAL; i++) {
+            Integer temp = new Integer(i);
+            if (!inArray(array, temp)) {
+                result.add(temp);
+            }
+        }
+        return result;
     }
 }

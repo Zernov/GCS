@@ -9,6 +9,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import sun.plugin2.message.Message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class ScheduleAgent extends Agent {
     private Integer requested = 0;
     private Integer proposed = 0;
     private AID requester;
+    private AID killer;
     private HashMap<AID, ArrayList<Integer>> tops = new HashMap<>();
     private AID pair;
 
@@ -70,9 +72,9 @@ public class ScheduleAgent extends Agent {
         Object[] args = getArguments();
         if (args != null && args.length > 0) {
             schedule = toArray(args[0].toString());
-            System.out.println(String.format("[ScheduleAgent \"%s\" was created]", getLocalName()));
+            //System.out.println(String.format("[ScheduleAgent \"%s\" was created]", getLocalName()));
         } else {
-            System.out.print(String.format("[ScheduleAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
+            //System.out.print(String.format("[ScheduleAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
             doDelete();
         }
 
@@ -85,10 +87,11 @@ public class ScheduleAgent extends Agent {
             sd.setType("Schedule");
             dfd.addServices(sd);
             DFService.register(this, dfd);
-            System.out.println(String.format("[ScheduleAgent \"%s\" was registered ]", getLocalName()));
+            //System.out.println(String.format("[ScheduleAgent \"%s\" was registered ]", getLocalName()));
         } catch (FIPAException fe) {
             fe.printStackTrace();
         }
+
 
         //Request Profit
         addBehaviour(new CyclicBehaviour(this) {
@@ -178,7 +181,7 @@ public class ScheduleAgent extends Agent {
                     proposed = proposed + 1;
                     if (proposed.equals(SCHEDULE_COUNT - 1)) {
                         pair = topTops(tops);
-                        System.out.println(String.format("\"%s\" chose \"%s\"\n", getLocalName(), pair.getLocalName()));
+                        System.out.println(String.format("\"%s\" chose \"%s\"", getLocalName(), pair.getLocalName()));
                         ACLMessage reply = new ACLMessage(ACLMessage.PROPAGATE);
                         reply.setContent(toStringMessage(tops.get(pair)));
                         reply.addReceiver(requester);
@@ -204,6 +207,19 @@ public class ScheduleAgent extends Agent {
                 }
             }
         });
+
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.CANCEL));
+                if (msg != null) {
+                    killer = msg.getSender();
+                    doDelete();
+                } else {
+                    block();
+                }
+            }
+        });
     }
 
     @Override
@@ -212,9 +228,12 @@ public class ScheduleAgent extends Agent {
         //Yellow Pages
         try {
             DFService.deregister(this);
-            System.out.println(String.format("[ScheduleAgent \"%s\" was deregistered]", getLocalName()));
+            //System.out.println(String.format("[ScheduleAgent \"%s\" was deregistered]", getLocalName()));
         } catch (FIPAException e) {
             e.printStackTrace();
         }
+        ACLMessage msg = new ACLMessage(ACLMessage.CONFIRM);
+        msg.addReceiver(killer);
+        send(msg);
     }
 }

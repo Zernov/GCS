@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d8fa17a2-f404-4e44-9af4-812dd21a3955" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/winnie.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APDescription.txt" afterPath="$PROJECT_DIR$/APDescription.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MTPs-Main-Container.txt" afterPath="$PROJECT_DIR$/MTPs-Main-Container.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/CreatorAgent.java" afterPath="$PROJECT_DIR$/src/agents/CreatorAgent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/GenerationAgent.java" afterPath="$PROJECT_DIR$/src/agents/GenerationAgent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/Global.java" afterPath="$PROJECT_DIR$/src/agents/Global.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/ListenerAgent.java" afterPath="$PROJECT_DIR$/src/agents/ListenerAgent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/ScheduleAgent.java" afterPath="$PROJECT_DIR$/src/agents/ScheduleAgent.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,25 +24,25 @@
       <file leaf-file-name="ScheduleAgent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/agents/ScheduleAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1351">
-              <caret line="199" column="64" lean-forward="true" selection-start-line="199" selection-start-column="64" selection-end-line="199" selection-end-column="64" />
-              <folding>
-                <element signature="method#takeDown#0;class#ScheduleAgent#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="960">
+              <caret line="208" column="11" lean-forward="true" selection-start-line="208" selection-start-column="11" selection-end-line="208" selection-end-column="11" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Global.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Global.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/agents/Global.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="263" column="47" lean-forward="false" selection-start-line="263" selection-start-column="47" selection-end-line="263" selection-end-column="47" />
+            <state relative-caret-position="714">
+              <caret line="77" column="30" lean-forward="true" selection-start-line="77" selection-start-column="30" selection-end-line="77" selection-end-column="30" />
               <folding>
                 <element signature="method#getDistributionValue#0;class#Global#0" expanded="false" />
                 <element signature="method#toMap#0;class#Global#0" expanded="false" />
                 <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
                 <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+                <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+                <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
                 <element signature="method#toArray#0;class#Global#0" expanded="false" />
                 <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
                 <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
@@ -59,9 +59,12 @@
                 <element signature="method#topSums#0;class#Global#0" expanded="false" />
                 <element signature="method#topTops#0;class#Global#0" expanded="false" />
                 <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+                <element signature="method#createArray#0;class#Global#0" expanded="false" />
                 <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
                 <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
                 <element signature="method#inArray#0;class#Global#0" expanded="false" />
+                <element signature="method#inArray#1;class#Global#0" expanded="false" />
+                <element signature="method#completeArray#0;class#Global#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -70,8 +73,8 @@
       <file leaf-file-name="CreatorAgent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/agents/CreatorAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="153" column="8" lean-forward="false" selection-start-line="153" selection-start-column="8" selection-end-line="153" selection-end-column="8" />
+            <state relative-caret-position="535">
+              <caret line="170" column="56" lean-forward="false" selection-start-line="170" selection-start-column="56" selection-end-line="170" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -80,18 +83,18 @@
       <file leaf-file-name="ListenerAgent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/agents/ListenerAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="47" column="48" lean-forward="false" selection-start-line="47" selection-start-column="48" selection-end-line="47" selection-end-column="48" />
+            <state relative-caret-position="510">
+              <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenerationAgent.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GenerationAgent.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/agents/GenerationAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="688">
-              <caret line="196" column="49" lean-forward="false" selection-start-line="196" selection-start-column="49" selection-end-line="196" selection-end-column="49" />
+            <state relative-caret-position="238">
+              <caret line="32" column="48" lean-forward="true" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -110,9 +113,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/agents/ScheduleAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/Global.java" />
         <option value="$PROJECT_DIR$/src/agents/CreatorAgent.java" />
+        <option value="$PROJECT_DIR$/src/agents/ListenerAgent.java" />
+        <option value="$PROJECT_DIR$/src/agents/ScheduleAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/GenerationAgent.java" />
       </list>
     </option>
@@ -138,6 +142,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -170,8 +176,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -474,23 +478,47 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/agents/ScheduleAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2856">
-          <caret line="182" column="61" lean-forward="false" selection-start-line="182" selection-start-column="61" selection-end-line="182" selection-end-column="61" />
-          <folding>
-            <element signature="method#takeDown#0;class#ScheduleAgent#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="3145">
+          <caret line="199" column="64" lean-forward="false" selection-start-line="199" selection-start-column="64" selection-end-line="199" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/CreatorAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2601">
+          <caret line="153" column="8" lean-forward="false" selection-start-line="153" selection-start-column="8" selection-end-line="153" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/ListenerAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="47" column="48" lean-forward="false" selection-start-line="47" selection-start-column="48" selection-end-line="47" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/GenerationAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3332">
+          <caret line="196" column="49" lean-forward="false" selection-start-line="196" selection-start-column="49" selection-end-line="196" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/agents/Global.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4845">
-          <caret line="285" column="14" lean-forward="true" selection-start-line="285" selection-start-column="14" selection-end-line="285" selection-end-column="14" />
+        <state relative-caret-position="4471">
+          <caret line="263" column="47" lean-forward="false" selection-start-line="263" selection-start-column="47" selection-end-line="263" selection-end-column="47" />
           <folding>
             <element signature="method#getDistributionValue#0;class#Global#0" expanded="false" />
             <element signature="method#toMap#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+            <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
             <element signature="method#toArray#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
@@ -507,9 +535,57 @@
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+            <element signature="method#createArray#0;class#Global#0" expanded="false" />
             <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
             <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
             <element signature="method#inArray#0;class#Global#0" expanded="false" />
+            <element signature="method#inArray#1;class#Global#0" expanded="false" />
+            <element signature="method#completeArray#0;class#Global#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/ScheduleAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2856">
+          <caret line="182" column="61" lean-forward="false" selection-start-line="182" selection-start-column="61" selection-end-line="182" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/Global.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4845">
+          <caret line="285" column="14" lean-forward="true" selection-start-line="285" selection-start-column="14" selection-end-line="285" selection-end-column="14" />
+          <folding>
+            <element signature="method#getDistributionValue#0;class#Global#0" expanded="false" />
+            <element signature="method#toMap#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+            <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
+            <element signature="method#toArray#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
+            <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
+            <element signature="method#toArrayTop#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessage#2;class#Global#0" expanded="false" />
+            <element signature="method#toStringConsole#2;class#Global#0" expanded="false" />
+            <element signature="method#toArrayPair#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessage#3;class#Global#0" expanded="false" />
+            <element signature="method#toStringConsole#3;class#Global#0" expanded="false" />
+            <element signature="method#sumArray#0;class#Global#0" expanded="false" />
+            <element signature="method#sumTotal#0;class#Global#0" expanded="false" />
+            <element signature="method#minIndex#0;class#Global#0" expanded="false" />
+            <element signature="method#topReports#0;class#Global#0" expanded="false" />
+            <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topTops#0;class#Global#0" expanded="false" />
+            <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+            <element signature="method#createArray#0;class#Global#0" expanded="false" />
+            <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
+            <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
+            <element signature="method#inArray#0;class#Global#0" expanded="false" />
+            <element signature="method#inArray#1;class#Global#0" expanded="false" />
+            <element signature="method#completeArray#0;class#Global#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -542,9 +618,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="method#takeDown#0;class#ScheduleAgent#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -557,6 +631,8 @@
             <element signature="method#toMap#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+            <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
             <element signature="method#toArray#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
@@ -573,9 +649,12 @@
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+            <element signature="method#createArray#0;class#Global#0" expanded="false" />
             <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
             <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
             <element signature="method#inArray#0;class#Global#0" expanded="false" />
+            <element signature="method#inArray#1;class#Global#0" expanded="false" />
+            <element signature="method#completeArray#0;class#Global#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -608,9 +687,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2550">
           <caret line="163" column="24" lean-forward="false" selection-start-line="163" selection-start-column="24" selection-end-line="163" selection-end-column="24" />
-          <folding>
-            <element signature="method#takeDown#0;class#ScheduleAgent#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -623,6 +700,8 @@
             <element signature="method#toMap#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+            <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
             <element signature="method#toArray#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
@@ -639,9 +718,12 @@
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+            <element signature="method#createArray#0;class#Global#0" expanded="false" />
             <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
             <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
             <element signature="method#inArray#0;class#Global#0" expanded="false" />
+            <element signature="method#inArray#1;class#Global#0" expanded="false" />
+            <element signature="method#completeArray#0;class#Global#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -674,9 +756,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2771">
           <caret line="163" column="24" lean-forward="false" selection-start-line="163" selection-start-column="24" selection-end-line="163" selection-end-column="24" />
-          <folding>
-            <element signature="method#takeDown#0;class#ScheduleAgent#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -689,6 +769,8 @@
             <element signature="method#toMap#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+            <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
             <element signature="method#toArray#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
@@ -705,9 +787,12 @@
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+            <element signature="method#createArray#0;class#Global#0" expanded="false" />
             <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
             <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
             <element signature="method#inArray#0;class#Global#0" expanded="false" />
+            <element signature="method#inArray#1;class#Global#0" expanded="false" />
+            <element signature="method#completeArray#0;class#Global#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -740,9 +825,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2550">
           <caret line="163" column="24" lean-forward="false" selection-start-line="163" selection-start-column="24" selection-end-line="163" selection-end-column="24" />
-          <folding>
-            <element signature="method#takeDown#0;class#ScheduleAgent#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -755,6 +838,8 @@
             <element signature="method#toMap#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+            <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
             <element signature="method#toArray#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
@@ -771,9 +856,12 @@
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+            <element signature="method#createArray#0;class#Global#0" expanded="false" />
             <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
             <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
             <element signature="method#inArray#0;class#Global#0" expanded="false" />
+            <element signature="method#inArray#1;class#Global#0" expanded="false" />
+            <element signature="method#completeArray#0;class#Global#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -806,9 +894,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2550">
           <caret line="163" column="24" lean-forward="false" selection-start-line="163" selection-start-column="24" selection-end-line="163" selection-end-column="24" />
-          <folding>
-            <element signature="method#takeDown#0;class#ScheduleAgent#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -821,6 +907,8 @@
             <element signature="method#toMap#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+            <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
             <element signature="method#toArray#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
@@ -837,9 +925,12 @@
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+            <element signature="method#createArray#0;class#Global#0" expanded="false" />
             <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
             <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
             <element signature="method#inArray#0;class#Global#0" expanded="false" />
+            <element signature="method#inArray#1;class#Global#0" expanded="false" />
+            <element signature="method#completeArray#0;class#Global#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -872,9 +963,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2788">
           <caret line="176" column="0" lean-forward="false" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
-          <folding>
-            <element signature="method#takeDown#0;class#ScheduleAgent#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -887,6 +976,8 @@
             <element signature="method#toMap#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+            <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
             <element signature="method#toArray#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
@@ -903,9 +994,12 @@
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+            <element signature="method#createArray#0;class#Global#0" expanded="false" />
             <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
             <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
             <element signature="method#inArray#0;class#Global#0" expanded="false" />
+            <element signature="method#inArray#1;class#Global#0" expanded="false" />
+            <element signature="method#completeArray#0;class#Global#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -938,9 +1032,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2040">
           <caret line="120" column="78" lean-forward="true" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="78" />
-          <folding>
-            <element signature="method#takeDown#0;class#ScheduleAgent#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -961,6 +1053,8 @@
             <element signature="method#toMap#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+            <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
             <element signature="method#toArray#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
@@ -977,56 +1071,27 @@
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+            <element signature="method#createArray#0;class#Global#0" expanded="false" />
             <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
             <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
             <element signature="method#inArray#0;class#Global#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/ListenerAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="47" column="48" lean-forward="false" selection-start-line="47" selection-start-column="48" selection-end-line="47" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/CreatorAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="153" column="8" lean-forward="false" selection-start-line="153" selection-start-column="8" selection-end-line="153" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/GenerationAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="688">
-          <caret line="196" column="49" lean-forward="false" selection-start-line="196" selection-start-column="49" selection-end-line="196" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/ScheduleAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1351">
-          <caret line="199" column="64" lean-forward="true" selection-start-line="199" selection-start-column="64" selection-end-line="199" selection-end-column="64" />
-          <folding>
-            <element signature="method#takeDown#0;class#ScheduleAgent#0" expanded="false" />
+            <element signature="method#inArray#1;class#Global#0" expanded="false" />
+            <element signature="method#completeArray#0;class#Global#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/agents/Global.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="263" column="47" lean-forward="false" selection-start-line="263" selection-start-column="47" selection-end-line="263" selection-end-column="47" />
+        <state relative-caret-position="714">
+          <caret line="77" column="30" lean-forward="true" selection-start-line="77" selection-start-column="30" selection-end-line="77" selection-end-column="30" />
           <folding>
             <element signature="method#getDistributionValue#0;class#Global#0" expanded="false" />
             <element signature="method#toMap#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#0;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#0;class#Global#0" expanded="false" />
+            <element signature="method#toArrayList#0;class#Global#0" expanded="false" />
+            <element signature="method#toStringMessageList#0;class#Global#0" expanded="false" />
             <element signature="method#toArray#0;class#Global#0" expanded="false" />
             <element signature="method#toStringMessage#1;class#Global#0" expanded="false" />
             <element signature="method#toStringConsole#1;class#Global#0" expanded="false" />
@@ -1043,10 +1108,45 @@
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
+            <element signature="method#createArray#0;class#Global#0" expanded="false" />
             <element signature="method#cloneArray#0;class#Global#0" expanded="false" />
             <element signature="method#mutateArray#0;class#Global#0" expanded="false" />
             <element signature="method#inArray#0;class#Global#0" expanded="false" />
+            <element signature="method#inArray#1;class#Global#0" expanded="false" />
+            <element signature="method#completeArray#0;class#Global#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/ListenerAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/ScheduleAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="208" column="11" lean-forward="true" selection-start-line="208" selection-start-column="11" selection-end-line="208" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/CreatorAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="170" column="56" lean-forward="false" selection-start-line="170" selection-start-column="56" selection-end-line="170" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/GenerationAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="32" column="48" lean-forward="true" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>

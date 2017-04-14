@@ -24,9 +24,9 @@ public class ListenerAgent extends Agent {
         Object[] args = getArguments();
         if (args != null && args.length > 0) {
             preferences = toMap(args[0].toString());
-            System.out.println(String.format("[ListenerAgent \"%s\" was created]", getLocalName()));
+            //System.out.println(String.format("[ListenerAgent \"%s\" was created]", getLocalName()));
         } else {
-            System.out.print(String.format("[ListenerAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
+            //System.out.print(String.format("[ListenerAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
             doDelete();
         }
 
@@ -39,7 +39,7 @@ public class ListenerAgent extends Agent {
             sd.setType("Listener");
             dfd.addServices(sd);
             DFService.register(this, dfd);
-            System.out.println(String.format("[ListenerAgent \"%s\" was registered ]", getLocalName()));
+            //System.out.println(String.format("[ListenerAgent \"%s\" was registered ]", getLocalName()));
         } catch (FIPAException fe) {
             fe.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class ListenerAgent extends Agent {
         //Yellow Pages
         try {
             DFService.deregister(this);
-            System.out.println(String.format("[ListenerAgent \"%s\" was deregistered]", getLocalName()));
+            //System.out.println(String.format("[ListenerAgent \"%s\" was deregistered]", getLocalName()));
         } catch (FIPAException e) {
             e.printStackTrace();
         }

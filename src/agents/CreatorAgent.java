@@ -1,5 +1,6 @@
 package agents;
 
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;
@@ -19,7 +20,25 @@ import static agents.Global.*;
 
 public class CreatorAgent extends Agent {
 
-    private Integer schedules = SCHEDULE_COUNT;
+    private Integer population = SCHEDULE_COUNT;
+    private Integer requested = 0;
+    private ArrayList<Integer[][]> projects;
+    private AID generation_agent;
+
+    //Search Schedules
+    private DFAgentDescription[] getSchedules() {
+        DFAgentDescription dfd = new DFAgentDescription();
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("Schedule");
+        dfd.addServices(sd);
+        DFAgentDescription[] result = null;
+        try {
+            result = DFService.search(this, dfd);
+        } catch (FIPAException fe) {
+            fe.printStackTrace();
+        }
+        return result;
+    }
 
     //Random Listener
     private void createRandomListener(String name) {
@@ -149,7 +168,7 @@ public class CreatorAgent extends Agent {
 
         createDataTestListeners();
         createDataTestSchedules();
-        createGeneration("Generation", new Object[] {"3"} );
+        createGeneration("Generation", new Object[] {"10"} );
 
         ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
         DFAgentDescription[] generations = new DFAgentDescription[0];
@@ -157,7 +176,8 @@ public class CreatorAgent extends Agent {
             generations = getGenerations();
         }
         for (DFAgentDescription generation: generations) {
-            msg.addReceiver(generation.getName());
+            generation_agent = generation.getName();
+            msg.addReceiver(generation_agent);
         }
         send(msg);
 
@@ -167,8 +187,36 @@ public class CreatorAgent extends Agent {
             public void action() {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
                 if (msg != null) {
-                    String content = msg.getContent();
-                    createCustomSchedule(String.format("Schedule %d", schedules++), new Object[]{content});
+                    projects = toArrayList(msg.getContent());
+                    ACLMessage killer = new ACLMessage(ACLMessage.CANCEL);
+                    DFAgentDescription[] schedules = getSchedules();
+                    for (DFAgentDescription schedule: schedules) {
+                        killer.addReceiver(schedule.getName());
+                    }
+                    requested = 0;
+                    send(killer);
+                } else {
+                    block();
+                }
+            }
+        });
+
+        //New generation
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.CONFIRM));
+                if (msg != null) {
+                    requested = requested + 1;
+                    if (SCHEDULE_COUNT.equals(requested)) {
+                        for (Integer[][] project: projects) {
+                            createCustomSchedule(String.format("Schedule %s", population.toString()), new Object[] {toStringMessage(project)});
+                            population = population + 1;
+                        }
+                        ACLMessage next = new ACLMessage(ACLMessage.REQUEST);
+                        next.addReceiver(generation_agent);
+                        send(next);
+                    }
                 } else {
                     block();
                 }

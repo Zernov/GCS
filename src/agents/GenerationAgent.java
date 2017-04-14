@@ -25,11 +25,12 @@ public class GenerationAgent extends Agent {
     private Integer generations;
     private Integer generation = 0;
     private Integer requested = 0;
+    private AID requester;
     private HashMap<AID, Integer[][]> profits = new HashMap<>();
     private HashMap<AID, Integer> sums = new HashMap<>();
 
     private ArrayList<Integer[][]> projects = new ArrayList<>();
-    private AID[] clones;
+    private AID[] clones = new AID[CLONE_COUNT];
     private AID[] mutantes = new AID[MUTANTE_COUNT];
 
 
@@ -55,9 +56,9 @@ public class GenerationAgent extends Agent {
         Object[] args = getArguments();
         if (args != null && args.length > 0) {
             generations = Integer.parseInt(args[0].toString());
-            System.out.println(String.format("[GenerationAgent \"%s\" was created]", getLocalName()));
+            //System.out.println(String.format("[GenerationAgent \"%s\" was created]", getLocalName()));
         } else {
-            System.out.print(String.format("[GenerationAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
+            //System.out.print(String.format("[GenerationAgent \"%s\" was not created (wrong arguments)]", getLocalName()));
             doDelete();
         }
 
@@ -70,7 +71,7 @@ public class GenerationAgent extends Agent {
             sd.setType("Generation");
             dfd.addServices(sd);
             DFService.register(this, dfd);
-            System.out.println(String.format("[GenerationAgent \"%s\" was registered ]", getLocalName()));
+            //System.out.println(String.format("[GenerationAgent \"%s\" was registered ]", getLocalName()));
         } catch (FIPAException fe) {
             fe.printStackTrace();
         }
@@ -81,7 +82,22 @@ public class GenerationAgent extends Agent {
             public void action() {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
                 if (msg != null) {
+                    requester = msg.getSender();
                     DFAgentDescription[] schedules = getSchedules();
+                    while (!SCHEDULE_COUNT.equals(schedules.length)) {
+                        schedules = getSchedules();
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ie) {
+                            ie.printStackTrace();
+                        }
+                    }
+                    requested = 0;
+                    profits = new HashMap<>();
+                    sums = new HashMap<>();
+                    projects = new ArrayList<>();
+                    clones = new AID[CLONE_COUNT];
+                    mutantes = new AID[MUTANTE_COUNT];
                     ACLMessage request = new ACLMessage(ACLMessage.REQUEST);
                     for (DFAgentDescription schedule: schedules) {
                         request.addReceiver(schedule.getName());
@@ -106,6 +122,7 @@ public class GenerationAgent extends Agent {
                     sums.put(name, sumTotal(profit));
                     if (requested.equals(SCHEDULE_COUNT)) {
                         if (generation < generations) {
+                            generation = generation + 1;
                             System.out.println(String.format("\n===Generation %s===", generation.toString()));
                             for (Map.Entry<AID, Integer> sum: sums.entrySet()) {
                                 System.out.println(String.format("\"%s\" has profit %s", sum.getKey().getLocalName(), sum.getValue()));
@@ -151,9 +168,11 @@ public class GenerationAgent extends Agent {
                             System.out.println(String.format("\"%s\"", mutantes[MUTANTE_COUNT - 1].getLocalName()));
                             request.addReceiver(mutantes[MUTANTE_COUNT - 1]);
 
-                            System.out.println(String.format("==================\n"));
+                            System.out.println(String.format("=================="));
                             send(propagate);
                             send(request);
+                        } else {
+                            System.out.println("\n===THE END===\n");
                         }
                     }
                 } else {
@@ -171,7 +190,11 @@ public class GenerationAgent extends Agent {
                     Integer[][] child = createArray(top);
                     projects.add(child);
                     if (SCHEDULE_COUNT.equals(projects.size())) {
-                        System.out.print("TODO");
+                        System.out.println("==================\n");
+                        ACLMessage generate = new ACLMessage(ACLMessage.REQUEST);
+                        generate.addReceiver(requester);
+                        generate.setContent(toStringMessageList(projects));
+                        send(generate);
                     }
                 } else {
                     block();
@@ -194,7 +217,10 @@ public class GenerationAgent extends Agent {
                         projects.add(mutante);
                     }
                     if (SCHEDULE_COUNT.equals(projects.size())) {
-                        System.out.print("TODO");
+                        ACLMessage generate = new ACLMessage(ACLMessage.REQUEST);
+                        generate.addReceiver(requester);
+                        generate.setContent(toStringMessageList(projects));
+                        send(generate);
                     }
                 } else {
                     block();
@@ -209,7 +235,7 @@ public class GenerationAgent extends Agent {
         //Yellow Pages
         try {
             DFService.deregister(this);
-            System.out.println(String.format("[GenerationAgent \"%s\" was deregistered]", getLocalName()));
+            //System.out.println(String.format("[GenerationAgent \"%s\" was deregistered]", getLocalName()));
         } catch (FIPAException e) {
             e.printStackTrace();
         }
