@@ -1,6 +1,7 @@
 package agents;
 
 import jade.core.AID;
+import javafx.util.Pair;
 
 import java.util.*;
 
@@ -11,11 +12,14 @@ public final class Global {
     public final static Integer TIMEZONE_COUNT = 6;
     public final static Integer LISTENER_COUNT = 10;
     public final static Integer SCHEDULE_COUNT = 5;
+    public final static Integer TOTAL = TIMEZONE_SIZE * TIMEZONE_COUNT;
+
+    //Generation Settings
     public final static Integer CLONE_COUNT = 1;
     public final static Integer MUTANTE_COUNT = 1;
+    public final static Integer MUTATIONS_COUNT = 5;
     public final static Integer MALE_COUNT = 3;
     public final static Integer TOP = 6;
-    public final static Integer TOTAL = TIMEZONE_SIZE * TIMEZONE_COUNT;
 
     //Profit Distribution Settings
     private final static Double min = 25.0;
@@ -110,17 +114,6 @@ public final class Global {
         return result;
     }
 
-    //Array Sum
-    public static Integer[][] sumArray(Integer[][] a, Integer[][] b) {
-        Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
-        for (int i = 0; i < TIMEZONE_COUNT; i++) {
-            for (int j = 0; j < TIMEZONE_SIZE; j++) {
-                result[i][j] = a[i][j] + b[i][j];
-            }
-        }
-        return result;
-    }
-
     //String -> Array
     public static Integer[] toArrayTop(String string) {
         Integer[] result = new Integer[TOP];
@@ -153,6 +146,45 @@ public final class Global {
         return result.substring(0, result.length() - 1);
     }
 
+    //String -> Array
+    public static ArrayList<Integer> toArrayPair(String string) {
+        ArrayList<Integer> result = new ArrayList<>();
+        String[] string_split = string.split(" ");
+        for (int i = 0; i < string_split.length; i++) {
+            result.add(Integer.parseInt(string_split[i]));
+        }
+        return result;
+    }
+
+    //Array -> String
+    public static String toStringMessage(ArrayList<Integer> pair) {
+        String result = "";
+        for (Integer report: pair) {
+            result = result + String.format("%s ", report.toString());
+        }
+        return result.substring(0, result.length() - 1);
+    }
+
+    //Array -> Console
+    public static String toStringConsole(ArrayList<Integer> pair) {
+        String result = "";
+        for (Integer report: pair) {
+            result = result + String.format("%s\t", report.toString());
+        }
+        return result.substring(0, result.length() - 1);
+    }
+
+
+    //Array Sum
+    public static Integer[][] sumArray(Integer[][] a, Integer[][] b) {
+        Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
+        for (int i = 0; i < TIMEZONE_COUNT; i++) {
+            for (int j = 0; j < TIMEZONE_SIZE; j++) {
+                result[i][j] = a[i][j] + b[i][j];
+            }
+        }
+        return result;
+    }
 
     //Total Sum
     public static Integer sumTotal(Integer[][] array) {
@@ -216,12 +248,12 @@ public final class Global {
     }
 
     //Top Tops
-    public static AID topTops(HashMap<AID, Integer> sums) {
+    public static AID topTops(HashMap<AID, ArrayList<Integer>> sums) {
         AID result = null;
         Integer temp = 0;
-        for (Map.Entry<AID, Integer> sum: sums.entrySet()) {
-            if (temp < sum.getValue()) {
-                temp = new Integer(sum.getValue());
+        for (Map.Entry<AID, ArrayList<Integer>> sum: sums.entrySet()) {
+            if (temp < sum.getValue().size()) {
+                temp = new Integer(sum.getValue().size());
                 result = sum.getKey();
             }
         }
@@ -229,15 +261,69 @@ public final class Global {
     }
 
     //Close Arrays
-    public static Integer closeArrays(Integer[] a, Integer[] b) {
-        Integer result = 0;
+    public static ArrayList<Integer> closeArrays(Integer[] a, Integer[] b) {
+        ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < b.length; j++) {
-                if (a[i].equals(b[i])) {
-                    result = result + 1;
+            result.add(a[i]);
+        }
+        for (int i = 0; i < b.length; i++) {
+            boolean flag = true;
+            for (int j = 0; j < a.length; j++) {
+                if (b[i].equals(a[j])) {
+                    flag = false;
                 }
+            }
+            if (flag) {
+                result.add(b[i]);
             }
         }
         return result;
     }
+
+    //Merge Array
+    public static Integer[][] createArray(ArrayList<Integer> top) {
+        Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
+        //TODO
+        return result;
+    }
+
+    //Clone Array
+    public static Integer[][] cloneArray(Integer[][] array) {
+        Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < TIMEZONE_COUNT; i++) {
+            for (int j = 0; j < TIMEZONE_SIZE; j++) {
+                result[i][j] = new Integer(array[i][j]);
+            }
+        }
+        return result;
+    }
+
+    //Mutate Array
+    public static Integer[][] mutateArray(Integer[][] array) {
+        Integer[][] result = new Integer[TIMEZONE_COUNT][TIMEZONE_SIZE];
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < TIMEZONE_COUNT; i++) {
+            for (int j = 0; j < TIMEZONE_SIZE; j++) {
+                result[i][j] = new Integer(array[i][j]);
+            }
+        }
+        for (int i = 0; i < TOTAL; i++) {
+            list.add(i);
+        }
+        Collections.shuffle(list);
+        for (int i = 0; i < MUTATIONS_COUNT; i++) {
+            Integer a = list.get(2 * i);
+            Integer a_i = a / TIMEZONE_SIZE;
+            Integer a_j = a % TIMEZONE_SIZE;
+            Integer b = list.get(2 * i + 1);
+            Integer b_i = b / TIMEZONE_SIZE;
+            Integer b_j = b % TIMEZONE_SIZE;
+            Integer temp = new Integer(array[a_i][a_j]);
+            result[a_i][a_j] = new Integer(array[b_i][b_j]);
+            result[b_i][b_j] = new Integer(temp);
+        }
+        return result;
+    }
+
 }

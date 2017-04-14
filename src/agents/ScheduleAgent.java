@@ -10,6 +10,7 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class ScheduleAgent extends Agent {
     private Integer requested = 0;
     private Integer proposed = 0;
     private AID requester;
-    private HashMap<AID, Integer> tops = new HashMap<>();
+    private HashMap<AID, ArrayList<Integer>> tops = new HashMap<>();
     private AID pair;
 
     //Search Listeners
@@ -177,7 +178,11 @@ public class ScheduleAgent extends Agent {
                     proposed = proposed + 1;
                     if (proposed.equals(SCHEDULE_COUNT - 1)) {
                         pair = topTops(tops);
-                        System.out.println(String.format("\"%s\" has sex with \"%s\"\n", getLocalName(), pair.getLocalName()));
+                        System.out.println(String.format("\"%s\" chose \"%s\"\n", getLocalName(), pair.getLocalName()));
+                        ACLMessage reply = new ACLMessage(ACLMessage.PROPAGATE);
+                        reply.setContent(toStringMessage(tops.get(pair)));
+                        reply.addReceiver(requester);
+                        send(reply);
                     }
                 } else {
                     block();

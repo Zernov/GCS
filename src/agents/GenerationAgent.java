@@ -11,6 +11,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.util.leap.*;
 import jade.util.leap.Collection;
+import jade.util.leap.Iterator;
 
 import java.util.*;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class GenerationAgent extends Agent {
     private HashMap<AID, Integer[][]> profits = new HashMap<>();
     private HashMap<AID, Integer> sums = new HashMap<>();
 
-    private HashMap<AID, AID> pairs = new HashMap<>();
+    private ArrayList<Integer[][]> projects = new ArrayList<>();
     private AID[] clones;
     private AID[] mutantes = new AID[MUTANTE_COUNT];
 
@@ -109,14 +110,17 @@ public class GenerationAgent extends Agent {
                             for (Map.Entry<AID, Integer> sum: sums.entrySet()) {
                                 System.out.println(String.format("\"%s\" has profit %s", sum.getKey().getLocalName(), sum.getValue()));
                             }
-                            System.out.println(String.format("=================="));
                             ACLMessage propagate = new ACLMessage(ACLMessage.PROPAGATE);
+                            ///////////////////MESSAGES FOR CLONES AND MUTANTS
                             DFAgentDescription[] schedules = getSchedules();
                             ArrayList<AID> list = new ArrayList<>();
                             for (DFAgentDescription schedule: schedules) {
                                 list.add(schedule.getName());
                             }
                             Collections.shuffle(list);
+
+                            System.out.println(String.format("=================="));
+
                             System.out.print(String.format("Males: "));
                             for (int i = 0; i < MALE_COUNT - 1; i++) {
                                 propagate.addReceiver(list.get(i));
@@ -124,13 +128,17 @@ public class GenerationAgent extends Agent {
                             }
                             propagate.addReceiver(list.get(MALE_COUNT - 1));
                             System.out.println(String.format("\"%s\"", list.get(MALE_COUNT - 1).getLocalName()));
+
                             clones = topSums(sums);
+
                             System.out.print(String.format("Clones: "));
                             for (int i = 0; i < CLONE_COUNT - 1; i++) {
                                 System.out.print(String.format("\"%s\", ", clones[i].getLocalName()));
                             }
                             System.out.println(String.format("\"%s\"", clones[CLONE_COUNT - 1].getLocalName()));
+
                             Collections.shuffle(list);
+
                             System.out.print(String.format("Mutantes: "));
                             for (int i = 0; i < MUTANTE_COUNT - 1; i++) {
                                 mutantes[i] = list.get(i);
@@ -138,9 +146,27 @@ public class GenerationAgent extends Agent {
                             }
                             mutantes[MUTANTE_COUNT - 1] = list.get(MUTANTE_COUNT - 1);
                             System.out.println(String.format("\"%s\"", mutantes[MUTANTE_COUNT - 1].getLocalName()));
+
                             System.out.println(String.format("==================\n"));
                             send(propagate);
                         }
+                    }
+                } else {
+                    block();
+                }
+            }
+        });
+
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.PROPAGATE));
+                if (msg != null) {
+                    ArrayList<Integer> top = toArrayPair(msg.getContent());
+                    Integer[][] child = createArray(top);
+                    projects.add(child);
+                    if (SCHEDULE_COUNT.equals(projects.size())) {
+                        //TODO
                     }
                 } else {
                     block();
