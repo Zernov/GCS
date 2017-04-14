@@ -121,6 +121,9 @@ public class GenerationAgent extends Agent {
                     profits.put(name, profit);
                     sums.put(name, sumTotal(profit));
                     if (requested.equals(SCHEDULE_COUNT)) {
+                        if (generation.equals(0)) {
+                            PROFIT_START = sums.get(topSum(sums));
+                        }
                         if (generation < generations) {
                             generation = generation + 1;
                             System.out.println(String.format("\n===Generation %s===", generation.toString()));
@@ -172,7 +175,8 @@ public class GenerationAgent extends Agent {
                             send(propagate);
                             send(request);
                         } else {
-                            System.out.println("\n===THE END===\n");
+                            PROFIT_END = sums.get(topSum(sums));
+                            System.out.println(String.format("\n===THE END===\nPROFIT_START = %s\nPROFIT_END = %s", PROFIT_START.toString(), PROFIT_END.toString()));
                         }
                     }
                 } else {

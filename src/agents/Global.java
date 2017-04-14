@@ -8,25 +8,29 @@ import java.util.*;
 public final class Global {
 
     //Main Settings
-    public final static Integer TIMEZONE_SIZE = 5;
-    public final static Integer TIMEZONE_COUNT = 6;
-    public final static Integer LISTENER_COUNT = 10;
+    public final static Integer TIMEZONE_SIZE = 2;
+    public final static Integer TIMEZONE_COUNT = 15;
+    public final static Integer LISTENER_COUNT = 100;
     public final static Integer SCHEDULE_COUNT = 5;
     public final static Integer TOTAL = TIMEZONE_SIZE * TIMEZONE_COUNT;
 
     //Generation Settings
+    public final static Integer GENERATION_COUNT = 20;
     public final static Integer CLONE_COUNT = 1;
     public final static Integer MUTANTE_COUNT = 1;
     public final static Integer MUTATIONS_COUNT = 5;
     public final static Integer MALE_COUNT = 3;
-    public final static Integer TOP = 6;
+    public final static Integer TOP = 3;
 
     //Profit Distribution Settings
-    private final static Double min = 25.0;
-    private final static Double max = 28.0;
+    private final static Double min = 20.0;
+    private final static Double max = 27.0;
     private final static Integer from = 1;
     private final static Integer to = 2;
-    private final static Double border = 100.0;
+    private final static Double border = 300.0;
+
+    public static Integer PROFIT_START = 0;
+    public static Integer PROFIT_END = 0;
 
     public static Double getRandomDouble() { return min + (new Random().nextDouble() * (max - min)); }
     public static Integer getRandomInteger() { return from + (new Random().nextInt((to - from + 1))); }
@@ -265,6 +269,19 @@ public final class Global {
             if (temp[min] < sum.getValue()) {
                 temp[min] = new Integer(sum.getValue());
                 result[min] = sum.getKey();
+            }
+        }
+        return result;
+    }
+
+    //Top Sum
+    public static AID topSum(HashMap<AID, Integer> sums) {
+        AID result = null;
+        Integer temp = 0;
+        for (Map.Entry<AID, Integer> sum: sums.entrySet()) {
+            if (temp < sum.getValue()) {
+                temp = new Integer(sum.getValue());
+                result = sum.getKey();
             }
         }
         return result;

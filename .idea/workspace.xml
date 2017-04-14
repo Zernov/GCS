@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d8fa17a2-f404-4e44-9af4-812dd21a3955" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/winnie.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/CreatorAgent.java" afterPath="$PROJECT_DIR$/src/agents/CreatorAgent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/GenerationAgent.java" afterPath="$PROJECT_DIR$/src/agents/GenerationAgent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/Global.java" afterPath="$PROJECT_DIR$/src/agents/Global.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/ListenerAgent.java" afterPath="$PROJECT_DIR$/src/agents/ListenerAgent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/agents/ScheduleAgent.java" afterPath="$PROJECT_DIR$/src/agents/ScheduleAgent.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,18 +21,18 @@
       <file leaf-file-name="ScheduleAgent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/agents/ScheduleAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="960">
-              <caret line="208" column="11" lean-forward="true" selection-start-line="208" selection-start-column="11" selection-end-line="208" selection-end-column="11" />
+            <state relative-caret-position="807">
+              <caret line="208" column="11" lean-forward="false" selection-start-line="208" selection-start-column="11" selection-end-line="208" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Global.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Global.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/agents/Global.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="77" column="30" lean-forward="true" selection-start-line="77" selection-start-column="30" selection-end-line="77" selection-end-column="30" />
+            <state relative-caret-position="374">
+              <caret line="25" column="43" lean-forward="true" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
               <folding>
                 <element signature="method#getDistributionValue#0;class#Global#0" expanded="false" />
                 <element signature="method#toMap#0;class#Global#0" expanded="false" />
@@ -57,6 +54,7 @@
                 <element signature="method#minIndex#0;class#Global#0" expanded="false" />
                 <element signature="method#topReports#0;class#Global#0" expanded="false" />
                 <element signature="method#topSums#0;class#Global#0" expanded="false" />
+                <element signature="method#topSum#0;class#Global#0" expanded="false" />
                 <element signature="method#topTops#0;class#Global#0" expanded="false" />
                 <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
                 <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -73,8 +71,8 @@
       <file leaf-file-name="CreatorAgent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/agents/CreatorAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="170" column="56" lean-forward="false" selection-start-line="170" selection-start-column="56" selection-end-line="170" selection-end-column="56" />
+            <state relative-caret-position="391">
+              <caret line="171" column="55" lean-forward="true" selection-start-line="171" selection-start-column="55" selection-end-line="171" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -90,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenerationAgent.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GenerationAgent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/agents/GenerationAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="32" column="48" lean-forward="true" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
+            <state relative-caret-position="535">
+              <caret line="178" column="165" lean-forward="true" selection-start-line="178" selection-start-column="165" selection-end-line="178" selection-end-column="165" />
               <folding />
             </state>
           </provider>
@@ -113,11 +111,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/agents/Global.java" />
-        <option value="$PROJECT_DIR$/src/agents/CreatorAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/ListenerAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/ScheduleAgent.java" />
         <option value="$PROJECT_DIR$/src/agents/GenerationAgent.java" />
+        <option value="$PROJECT_DIR$/src/agents/CreatorAgent.java" />
+        <option value="$PROJECT_DIR$/src/agents/Global.java" />
       </list>
     </option>
   </component>
@@ -142,8 +140,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -176,6 +172,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -476,6 +474,30 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/agents/CreatorAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2890">
+          <caret line="170" column="56" lean-forward="false" selection-start-line="170" selection-start-column="56" selection-end-line="170" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/ListenerAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/GenerationAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="48" lean-forward="true" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/agents/ScheduleAgent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3145">
@@ -533,6 +555,7 @@
             <element signature="method#minIndex#0;class#Global#0" expanded="false" />
             <element signature="method#topReports#0;class#Global#0" expanded="false" />
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topSum#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
             <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -578,6 +601,7 @@
             <element signature="method#minIndex#0;class#Global#0" expanded="false" />
             <element signature="method#topReports#0;class#Global#0" expanded="false" />
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topSum#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
             <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -647,6 +671,7 @@
             <element signature="method#minIndex#0;class#Global#0" expanded="false" />
             <element signature="method#topReports#0;class#Global#0" expanded="false" />
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topSum#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
             <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -716,6 +741,7 @@
             <element signature="method#minIndex#0;class#Global#0" expanded="false" />
             <element signature="method#topReports#0;class#Global#0" expanded="false" />
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topSum#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
             <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -785,6 +811,7 @@
             <element signature="method#minIndex#0;class#Global#0" expanded="false" />
             <element signature="method#topReports#0;class#Global#0" expanded="false" />
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topSum#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
             <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -854,6 +881,7 @@
             <element signature="method#minIndex#0;class#Global#0" expanded="false" />
             <element signature="method#topReports#0;class#Global#0" expanded="false" />
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topSum#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
             <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -923,6 +951,7 @@
             <element signature="method#minIndex#0;class#Global#0" expanded="false" />
             <element signature="method#topReports#0;class#Global#0" expanded="false" />
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topSum#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
             <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -992,6 +1021,7 @@
             <element signature="method#minIndex#0;class#Global#0" expanded="false" />
             <element signature="method#topReports#0;class#Global#0" expanded="false" />
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topSum#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
             <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -1069,6 +1099,7 @@
             <element signature="method#minIndex#0;class#Global#0" expanded="false" />
             <element signature="method#topReports#0;class#Global#0" expanded="false" />
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topSum#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
             <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -1081,10 +1112,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/ListenerAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/GenerationAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="178" column="165" lean-forward="true" selection-start-line="178" selection-start-column="165" selection-end-line="178" selection-end-column="165" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/CreatorAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="171" column="55" lean-forward="true" selection-start-line="171" selection-start-column="55" selection-end-line="171" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/agents/ScheduleAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="807">
+          <caret line="208" column="11" lean-forward="false" selection-start-line="208" selection-start-column="11" selection-end-line="208" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/agents/Global.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="77" column="30" lean-forward="true" selection-start-line="77" selection-start-column="30" selection-end-line="77" selection-end-column="30" />
+        <state relative-caret-position="374">
+          <caret line="25" column="43" lean-forward="true" selection-start-line="25" selection-start-column="43" selection-end-line="25" selection-end-column="43" />
           <folding>
             <element signature="method#getDistributionValue#0;class#Global#0" expanded="false" />
             <element signature="method#toMap#0;class#Global#0" expanded="false" />
@@ -1106,6 +1169,7 @@
             <element signature="method#minIndex#0;class#Global#0" expanded="false" />
             <element signature="method#topReports#0;class#Global#0" expanded="false" />
             <element signature="method#topSums#0;class#Global#0" expanded="false" />
+            <element signature="method#topSum#0;class#Global#0" expanded="false" />
             <element signature="method#topTops#0;class#Global#0" expanded="false" />
             <element signature="method#closeArrays#0;class#Global#0" expanded="false" />
             <element signature="method#createArray#0;class#Global#0" expanded="false" />
@@ -1115,38 +1179,6 @@
             <element signature="method#inArray#1;class#Global#0" expanded="false" />
             <element signature="method#completeArray#0;class#Global#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/ListenerAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/ScheduleAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="208" column="11" lean-forward="true" selection-start-line="208" selection-start-column="11" selection-end-line="208" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/CreatorAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="170" column="56" lean-forward="false" selection-start-line="170" selection-start-column="56" selection-end-line="170" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/agents/GenerationAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="32" column="48" lean-forward="true" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>

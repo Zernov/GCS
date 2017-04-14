@@ -166,9 +166,10 @@ public class CreatorAgent extends Agent {
     @Override
     protected void setup() {
 
-        createDataTestListeners();
-        createDataTestSchedules();
-        createGeneration("Generation", new Object[] {"10"} );
+        /*createDataTestListeners();
+        createDataTestSchedules();*/
+        createDataRandom();
+        createGeneration("Generation", new Object[] {GENERATION_COUNT.toString()} );
 
         ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
         DFAgentDescription[] generations = new DFAgentDescription[0];
