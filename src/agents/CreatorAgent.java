@@ -151,7 +151,7 @@ public class CreatorAgent extends Agent {
         createDataTestSchedules();
         createGeneration("Generation", new Object[] {"3"} );
 
-        /*ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
         DFAgentDescription[] generations = new DFAgentDescription[0];
         while (generations.length == 0) {
             generations = getGenerations();
@@ -159,7 +159,7 @@ public class CreatorAgent extends Agent {
         for (DFAgentDescription generation: generations) {
             msg.addReceiver(generation.getName());
         }
-        send(msg);*/
+        send(msg);
 
         //Reactive Creation
         addBehaviour(new CyclicBehaviour(this) {

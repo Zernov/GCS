@@ -110,8 +110,8 @@ public class GenerationAgent extends Agent {
                             for (Map.Entry<AID, Integer> sum: sums.entrySet()) {
                                 System.out.println(String.format("\"%s\" has profit %s", sum.getKey().getLocalName(), sum.getValue()));
                             }
+                            ACLMessage request = new ACLMessage(ACLMessage.REQUEST_WHEN);
                             ACLMessage propagate = new ACLMessage(ACLMessage.PROPAGATE);
-                            ///////////////////MESSAGES FOR CLONES AND MUTANTS
                             DFAgentDescription[] schedules = getSchedules();
                             ArrayList<AID> list = new ArrayList<>();
                             for (DFAgentDescription schedule: schedules) {
@@ -134,8 +134,10 @@ public class GenerationAgent extends Agent {
                             System.out.print(String.format("Clones: "));
                             for (int i = 0; i < CLONE_COUNT - 1; i++) {
                                 System.out.print(String.format("\"%s\", ", clones[i].getLocalName()));
+                                request.addReceiver(clones[i]);
                             }
                             System.out.println(String.format("\"%s\"", clones[CLONE_COUNT - 1].getLocalName()));
+                            request.addReceiver(clones[CLONE_COUNT - 1]);
 
                             Collections.shuffle(list);
 
@@ -143,12 +145,15 @@ public class GenerationAgent extends Agent {
                             for (int i = 0; i < MUTANTE_COUNT - 1; i++) {
                                 mutantes[i] = list.get(i);
                                 System.out.print(String.format("\"%s\", ", mutantes[i].getLocalName()));
+                                request.addReceiver(mutantes[i]);
                             }
                             mutantes[MUTANTE_COUNT - 1] = list.get(MUTANTE_COUNT - 1);
                             System.out.println(String.format("\"%s\"", mutantes[MUTANTE_COUNT - 1].getLocalName()));
+                            request.addReceiver(mutantes[MUTANTE_COUNT - 1]);
 
                             System.out.println(String.format("==================\n"));
                             send(propagate);
+                            send(request);
                         }
                     }
                 } else {
@@ -166,7 +171,30 @@ public class GenerationAgent extends Agent {
                     Integer[][] child = createArray(top);
                     projects.add(child);
                     if (SCHEDULE_COUNT.equals(projects.size())) {
-                        //TODO
+                        System.out.print("TODO");
+                    }
+                } else {
+                    block();
+                }
+            }
+        });
+
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM_IF));
+                if (msg != null) {
+                    AID sender = msg.getSender();
+                    Integer[][] schedule = toArray(msg.getContent());
+                    if (inArray(clones, sender)) {
+                        Integer[][] clone = cloneArray(schedule);
+                        projects.add(clone);
+                    } else if (inArray(mutantes, sender)) {
+                        Integer[][] mutante = mutateArray(schedule);
+                        projects.add(mutante);
+                    }
+                    if (SCHEDULE_COUNT.equals(projects.size())) {
+                        System.out.print("TODO");
                     }
                 } else {
                     block();

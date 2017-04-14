@@ -326,4 +326,12 @@ public final class Global {
         return result;
     }
 
+    public static boolean inArray(AID[] array, AID aid) {
+        for (int i = 0; i < array.length; i++) {
+            if (aid.equals(array[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

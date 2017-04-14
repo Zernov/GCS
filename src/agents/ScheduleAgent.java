@@ -189,6 +189,21 @@ public class ScheduleAgent extends Agent {
                 }
             }
         });
+
+        addBehaviour(new CyclicBehaviour(this) {
+            @Override
+            public void action() {
+                ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST_WHEN));
+                if (msg != null) {
+                    ACLMessage reply = msg.createReply();
+                    reply.setContent(toStringMessage(schedule));
+                    reply.setPerformative(ACLMessage.INFORM_IF);
+                    send(reply);
+                } else {
+                    block();
+                }
+            }
+        });
     }
 
     @Override
