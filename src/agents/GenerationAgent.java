@@ -3,6 +3,7 @@ package agents;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.SequentialBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
@@ -26,13 +27,13 @@ public class GenerationAgent extends Agent {
     private Integer generation = 0;
     private Integer requested = 0;
     private AID requester;
+    private Integer currentProfit = 0;
     private HashMap<AID, Integer[][]> profits = new HashMap<>();
     private HashMap<AID, Integer> sums = new HashMap<>();
 
     private ArrayList<Integer[][]> projects = new ArrayList<>();
     private AID[] clones = new AID[CLONE_COUNT];
     private AID[] mutantes = new AID[MUTANTE_COUNT];
-
 
     //Search Schedules
     private DFAgentDescription[] getSchedules() {
@@ -76,8 +77,9 @@ public class GenerationAgent extends Agent {
             fe.printStackTrace();
         }
 
+        SequentialBehaviour reqRecBehaviour = new SequentialBehaviour();
         //Request Profit
-        addBehaviour(new CyclicBehaviour(this) {
+        reqRecBehaviour.addSubBehaviour(new CyclicBehaviour(this) {
             @Override
             public void action() {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.REQUEST));
@@ -110,7 +112,7 @@ public class GenerationAgent extends Agent {
         });
 
         //Receive Profit
-        addBehaviour(new CyclicBehaviour(this) {
+        reqRecBehaviour.addSubBehaviour(new CyclicBehaviour(this) {
             @Override
             public void action() {
                 ACLMessage msg = receive(MessageTemplate.MatchPerformative(ACLMessage.INFORM));
@@ -124,7 +126,9 @@ public class GenerationAgent extends Agent {
                         if (generation.equals(0)) {
                             PROFIT_START = sums.get(topSum(sums));
                         }
-                        if (generation < generations) {
+                        PROFIT_PREV = PROFIT_CURR;
+                        PROFIT_CURR = sums.get(topSum(sums));
+                        if (PROFIT_PREV != PROFIT_CURR) {
                             generation = generation + 1;
                             System.out.println(String.format("\n===Generation %s===", generation.toString()));
                             for (Map.Entry<AID, Integer> sum: sums.entrySet()) {
@@ -184,6 +188,8 @@ public class GenerationAgent extends Agent {
                 }
             }
         });
+
+        addBehaviour(reqRecBehaviour);
 
         addBehaviour(new CyclicBehaviour(this) {
             @Override

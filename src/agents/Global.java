@@ -29,7 +29,9 @@ public final class Global {
     private final static Integer to = 2;
     private final static Double border = 300.0;
 
-    public static Integer PROFIT_START = 0;
+    public static Integer PROFIT_START =0;
+    public static Integer PROFIT_CURR = 0;
+    public static Integer PROFIT_PREV = 0;
     public static Integer PROFIT_END = 0;
 
     public static Double getRandomDouble() { return min + (new Random().nextDouble() * (max - min)); }
